@@ -1,6 +1,6 @@
 #!/bin/sh 
 
-MAC_NATIVE_COMMANDLINE="clang++ -Wall -std=c++17 -stdlib=libc++ -O3 -I/opt/homebrew/include -I./src"
+MAC_NATIVE_COMMANDLINE="clang++ -Wall -std=c++17 -stdlib=libc++ -O3 -I./src"
 
 TEST_TYPES="memcpy saxpy dot prefix_sum sort nbody convolution_2d sparse_matrix_vector dense_matrix_vector cholesky jacobi_solver gauss_seidel_solver fft lcp conjugate_gradient_solver"
 
@@ -21,13 +21,13 @@ for n in ${TEST_TYPES}; do
 
 done 
 
-for n in ${TEST_TYPES}; do
-
-  PARAM=""
-  if [ "$#" != "0" ]; then
-    PARAM="print_diag"
-  fi
-
-  echo "${OUTPUT_DIR_MAC_NATIVE}/${n} ${PARAM}"
-  ${OUTPUT_DIR_MAC_NATIVE}/${n} ${PARAM}
-done 
+#for n in ${TEST_TYPES}; do
+#
+#  PARAM=""
+#  if [ "$#" != "0" ]; then
+#    PARAM="print_diag"
+#  fi
+#
+#  echo "${OUTPUT_DIR_MAC_NATIVE}/${n} ${PARAM}"
+#  ${OUTPUT_DIR_MAC_NATIVE}/${n} ${PARAM}
+#done 

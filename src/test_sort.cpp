@@ -200,7 +200,7 @@ string testSuitePerType ( const bool print_diag )
     vector< string > case_names {
 
         "std::sort()",
-        "boost::sort::spreadsort",
+        "boost::sort::spreadsort()",
         "boost::sort::block_indirect_sort()"
     };
 
