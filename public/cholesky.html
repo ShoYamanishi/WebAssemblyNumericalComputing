@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main_style.css">
+  <title>WebAssembly Numerical Computing: Cholesky Factorization</title>
+
+</head>
+
+<body>
+
+  <main>
+
+    <div class="description">
+      <h1>WebAssembly Numerical Computing: Cholesky Factorization</h1>
+      <p>
+          This page measures the performance of the Cholesky factorization.
+      </p>
+      <p>
+          The numbers below are in milliseconds.
+          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
+          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
+          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+      </p>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Column-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_colmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
+        <tr><td>plain c++ column-cholesky</td><td>0.0520125</td><td>0.224733</td><td>0.748804</td><td>2.97862</td><td>22.2377</td></tr>
+        <tr><td>plain c++ submatrix-cholesky</td><td>0.044375</td><td>0.232096</td><td>0.655646</td><td>2.98508</td><td>21.0785</td></tr>
+        <tr><td>Eigen3 LLT</td><td>0.0285458</td><td>0.101883</td><td>0.254925</td><td>0.904937</td><td>6.57882</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Row-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_rowmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
+        <tr><td>plain c++ column-cholesky</td><td>0.0299124</td><td>0.231133</td><td>1.73567</td><td>13.134</td><td>106.676</td></tr>
+        <tr><td>plain c++ submatrix-cholesky</td><td>0.0295959</td><td>0.218621</td><td>1.67983</td><td>12.9775</td><td>105.774</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Column-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_colmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
+        <tr><td>plain c++ column-cholesky</td><td>0.0156125</td><td>0.0864252</td><td>0.663283</td><td>5.21489</td><td>39.7863</td></tr>
+        <tr><td>plain c++ submatrix-cholesky</td><td>0.0175167</td><td>0.0898123</td><td>0.617608</td><td>4.94087</td><td>36.6991</td></tr>
+        <tr><td>Eigen3 LLT</td><td>0.0126251</td><td>0.0493582</td><td>0.265529</td><td>1.78768</td><td>13.1378</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Row-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_rowmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
+        <tr><td>plain c++ column-cholesky</td><td>0.0304833</td><td>0.231846</td><td>1.74506</td><td>13.1484</td><td>109.921</td></tr>
+        <tr><td>plain c++ submatrix-cholesky</td><td>0.0297708</td><td>0.217629</td><td>1.68365</td><td>12.9981</td><td>107.324</td></tr>
+
+      </table>
+
+    </div>
+
+  </main>
+
+  <script>
+    let Module = {
+      onRuntimeInitialized: () => {
+
+        let resultFloatColMajor = Module.testCholeskyFloatColMajor();
+        console.log( resultFloatColMajor );
+        
+        let tableFloatColMajor = document.querySelector('#results_browser_float_colmajor');
+        tableFloatColMajor.innerHTML = resultFloatColMajor;
+
+        let resultFloatRowMajor = Module.testCholeskyFloatRowMajor();
+        console.log( resultFloatRowMajor );
+        
+        let tableFloatRowMajor = document.querySelector('#results_browser_float_rowmajor');
+        tableFloatRowMajor.innerHTML = resultFloatRowMajor;
+
+        let resultDoubleColMajor = Module.testCholeskyDoubleColMajor();
+        console.log( resultDoubleColMajor );
+        
+        let tableDoubleColMajor = document.querySelector('#results_browser_double_colmajor');
+        tableDoubleColMajor.innerHTML = resultDoubleColMajor;
+
+        let resultDoubleRowMajor = Module.testCholeskyDoubleRowMajor();
+        console.log( resultDoubleRowMajor );
+        
+        let tableDoubleRowMajor = document.querySelector('#results_browser_double_rowmajor');
+        tableDoubleRowMajor.innerHTML = resultDoubleRowMajor;
+
+      }
+    };
+  </script>
+  <script src="cholesky.js"></script>
+</body>
+
+</html>

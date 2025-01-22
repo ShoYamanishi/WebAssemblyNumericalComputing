@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main_style.css">
+  <title>WebAssembly Numerical Computing: Dense Matrix-Vector Multiplication</title>
+
+</head>
+
+<body>
+
+  <main>
+
+    <div class="description">
+      <h1>WebAssembly Numerical Computing: Dense Matrix-Vector Multiplication</h1>
+      <p>
+          This page measures the performance of the dense matrix-vector multiplication.
+         
+      </p>
+
+      <p>
+          The numbers below are in milliseconds.
+          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
+          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
+          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+      </p>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Column-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_colmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>256x256</th><th>512x512</th><th>1Kx1K</th><th>2Kx2K</th><th>4Kx4K</th></tr>
+        <tr><td>plain c++</td><td>0.187621</td><td>0.927</td><td>2.2835</td><td>10.5495</td><td>65.4228</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.0334542</td><td>0.139008</td><td>0.355421</td><td>2.5309</td><td>15.8807</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.0211</td><td>0.0730667</td><td>0.1881</td><td>1.45306</td><td>11.0688</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.0172379</td><td>0.0432083</td><td>0.124129</td><td>0.971279</td><td>8.8116</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.0160249</td><td>0.0385832</td><td>0.0983752</td><td>0.656759</td><td>8.3818</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.0174415</td><td>0.0494125</td><td>0.107004</td><td>0.342412</td><td>1.29694</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Row-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_rowmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>256x256</th><th>512x512</th><th>1Kx1K</th><th>2Kx2K</th><th>4Kx4K</th></tr>
+        <tr><td>plain c++</td><td>0.0345291</td><td>0.183304</td><td>0.859937</td><td>3.68801</td><td>15.2817</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.0081374</td><td>0.0393376</td><td>0.186608</td><td>0.881379</td><td>3.74127</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.0050458</td><td>0.0221166</td><td>0.0955583</td><td>0.452692</td><td>1.9107</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.0049746</td><td>0.0196582</td><td>0.0790502</td><td>0.33985</td><td>1.30471</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.0072793</td><td>0.0231126</td><td>0.0838041</td><td>0.343446</td><td>1.31098</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.0376585</td><td>0.182733</td><td>0.864392</td><td>3.69029</td><td>15.3145</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Column-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_colmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>256x256</th><th>512x512</th><th>1Kx1K</th><th>2Kx2K</th><th>4Kx4K</th></tr>
+        <tr><td>plain c++</td><td>0.0712417</td><td>0.307517</td><td>1.50812</td><td>12.1225</td><td>65.671</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.0256918</td><td>0.120062</td><td>0.622266</td><td>6.05881</td><td>31.129</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.0144164</td><td>0.0624709</td><td>0.337879</td><td>3.61699</td><td>23.1902</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.0090665</td><td>0.039275</td><td>0.234529</td><td>3.45765</td><td>21.5046</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.0081875</td><td>0.034525</td><td>0.179688</td><td>3.47519</td><td>21.3702</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.0104625</td><td>0.0395416</td><td>0.16625</td><td>0.649592</td><td>2.58938</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Row-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_rowmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>256x256</th><th>512x512</th><th>1Kx1K</th><th>2Kx2K</th><th>4Kx4K</th></tr>
+        <tr><td>plain c++</td><td>0.0347374</td><td>0.190937</td><td>0.879633</td><td>3.72155</td><td>15.3458</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.0194206</td><td>0.0920667</td><td>0.437921</td><td>1.85865</td><td>7.66233</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.0106628</td><td>0.0464959</td><td>0.252279</td><td>0.942967</td><td>3.87037</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.0098543</td><td>0.0393374</td><td>0.173671</td><td>0.646629</td><td>2.58491</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.0096543</td><td>0.0382875</td><td>0.172088</td><td>0.625879</td><td>2.52206</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.0348627</td><td>0.191888</td><td>0.87905</td><td>3.72353</td><td>15.3475</td></tr>
+
+      </table>
+
+    </div>
+
+  </main>
+
+  <script>
+    let Module = {
+      onRuntimeInitialized: () => {
+
+        let resultFloatColMajor = Module.testDenseMatrixVectorFloatColMajor();
+        console.log( resultFloatColMajor );
+        
+        let tableFloatColMajor = document.querySelector('#results_browser_float_colmajor');
+        tableFloatColMajor.innerHTML = resultFloatColMajor;
+
+        let resultFloatRowMajor = Module.testDenseMatrixVectorFloatRowMajor();
+        console.log( resultFloatRowMajor );
+        
+        let tableFloatRowMajor = document.querySelector('#results_browser_float_rowmajor');
+        tableFloatRowMajor.innerHTML = resultFloatRowMajor;
+
+        let resultDoubleColMajor = Module.testDenseMatrixVectorDoubleColMajor();
+        console.log( resultDoubleColMajor );
+        
+        let tableDoubleColMajor = document.querySelector('#results_browser_double_colmajor');
+        tableDoubleColMajor.innerHTML = resultDoubleColMajor;
+
+        let resultDoubleRowMajor = Module.testDenseMatrixVectorDoubleRowMajor();
+        console.log( resultDoubleRowMajor );
+        
+        let tableDoubleRowMajor = document.querySelector('#results_browser_double_rowmajor');
+        tableDoubleRowMajor.innerHTML = resultDoubleRowMajor;
+
+      }
+    };
+  </script>
+  <script src="dense_matrix_vector.js"></script>
+</body>
+
+</html>

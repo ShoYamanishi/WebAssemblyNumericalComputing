@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main_style.css">
+  <title>WebAssembly Numerical Computing: Gauss-Seidel Solver</title>
+
+</head>
+
+<body>
+
+  <main>
+
+    <div class="description">
+      <h1>WebAssembly Numerical Computing: Gauss-Seidel Solver</h1>
+      <p>
+          This page measures the performance of the Gauss-Seidel solver with 10 iterations.
+      </p>
+
+      <p>
+          The numbers below are in milliseconds.
+          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
+          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
+          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+      </p>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Column-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_colmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
+        <tr><td>plain c++</td><td>0.0884501</td><td>0.447846</td><td>1.19253</td><td>2.85475</td><td>12.2852</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Row-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_rowmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
+        <tr><td>plain c++</td><td>0.0256748</td><td>0.100713</td><td>0.417975</td><td>1.92799</td><td>8.70611</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.0113957</td><td>0.0357167</td><td>0.131646</td><td>0.530104</td><td>2.28418</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.0104708</td><td>0.0266416</td><td>0.0990291</td><td>0.353571</td><td>1.26746</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.0155584</td><td>0.0375333</td><td>0.101125</td><td>0.319812</td><td>1.06247</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.0660621</td><td>0.152996</td><td>0.3345</td><td>0.772679</td><td>1.98308</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Column-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_colmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
+        <tr><td>plain c++</td><td>0.0329625</td><td>0.143029</td><td>0.628396</td><td>2.86608</td><td>13.3689</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Row-Major</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_rowmajor" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
+        <tr><td>plain c++</td><td>0.0250042</td><td>0.104471</td><td>0.421012</td><td>1.98878</td><td>8.89851</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.0167583</td><td>0.0651791</td><td>0.265438</td><td>1.14051</td><td>4.82009</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.0121375</td><td>0.0397584</td><td>0.159092</td><td>0.599117</td><td>2.43046</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.0109623</td><td>0.0305248</td><td>0.121046</td><td>0.46575</td><td>1.81213</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.0167792</td><td>0.0447958</td><td>0.141213</td><td>0.494516</td><td>1.84108</td></tr>
+
+      </table>
+
+    </div>
+
+  </main>
+
+  <script>
+    let Module = {
+      onRuntimeInitialized: () => {
+
+        let resultFloatColMajor = Module.testGaussSeidelSolverFloatColMajor();
+        console.log( resultFloatColMajor );
+        
+        let tableFloatColMajor = document.querySelector('#results_browser_float_colmajor');
+        tableFloatColMajor.innerHTML = resultFloatColMajor;
+
+        let resultFloatRowMajor = Module.testGaussSeidelSolverFloatRowMajor();
+        console.log( resultFloatRowMajor );
+        
+        let tableFloatRowMajor = document.querySelector('#results_browser_float_rowmajor');
+        tableFloatRowMajor.innerHTML = resultFloatRowMajor;
+
+        let resultDoubleColMajor = Module.testGaussSeidelSolverDoubleColMajor();
+        console.log( resultDoubleColMajor );
+        
+        let tableDoubleColMajor = document.querySelector('#results_browser_double_colmajor');
+        tableDoubleColMajor.innerHTML = resultDoubleColMajor;
+
+        let resultDoubleRowMajor = Module.testGaussSeidelSolverDoubleRowMajor();
+        console.log( resultDoubleRowMajor );
+        
+        let tableDoubleRowMajor = document.querySelector('#results_browser_double_rowmajor');
+        tableDoubleRowMajor.innerHTML = resultDoubleRowMajor;
+
+      }
+    };
+  </script>
+  <script src="gauss_seidel_solver.js"></script>
+</body>
+
+</html>

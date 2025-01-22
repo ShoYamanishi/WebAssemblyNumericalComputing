@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main_style.css">
+  <title>WebAssembly Numerical Computing: Lemke LCP Solver</title>
+
+</head>
+
+<body>
+
+  <main>
+
+    <div class="description">
+      <h1>WebAssembly Numerical Computing: Lemke LCP Solver</h1>
+      <p>
+          This page measures the performance of the Lemke LCP solver.
+          The number of pivots can not be fixed, but the input data have been sampled
+          from a velocity-space constraint-based real rigid body simulation with the hexagonal friction cone.
+      </p>
+
+      <p>
+          The numbers below are in milliseconds.
+          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
+          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
+          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+      </p>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Non-Symmetric Matrix, μ=0.2</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_mu02" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.0566834</td><td>0.234259</td><td>2.25749</td><td>16.5071</td></tr>
+        <tr><td>NEON</td><td>0.0674375</td><td>0.309542</td><td>2.73112</td><td>21.5966</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Non-Symmetric Matrix, μ=0.2</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_mu02" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.0405461</td><td>0.354667</td><td>3.5928</td><td>31.1508</td></tr>
+        <tr><td>NEON</td><td>0.0521665</td><td>0.473821</td><td>4.5665</td><td>38.9336</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Non-Symmetric Matrix, μ=0.8</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_mu08" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.0282123</td><td>0.248971</td><td>1.93384</td><td>15.4452</td></tr>
+        <tr><td>NEON</td><td>0.0341791</td><td>0.332363</td><td>2.69143</td><td>20.7447</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Non-Symmetric Matrix, μ=0.8</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_mu08" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.0456207</td><td>0.599912</td><td>3.84831</td><td>29.3746</td></tr>
+        <tr><td>NEON</td><td>0.0589542</td><td>0.792208</td><td>4.81507</td><td>36.9343</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Symmetric Matrix, No Friction</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_sym" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.0248502</td><td>0.191592</td><td>2.49143</td><td>20.6859</td></tr>
+        <tr><td>NEON</td><td>0.0301459</td><td>0.259146</td><td>3.25385</td><td>26.7465</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Symmetric Matrix, No Friction</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_sym" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.0402584</td><td>0.476808</td><td>4.92485</td><td>38.8034</td></tr>
+        <tr><td>NEON</td><td>0.0517958</td><td>0.642291</td><td>6.28526</td><td>48.4315</td></tr>
+
+      </table>
+
+    </div>
+
+  </main>
+
+  <script>
+    let Module = {
+      onRuntimeInitialized: () => {
+
+        let resultFloatMu02 = Module.testLCPFloatMu02();
+        console.log( resultFloatMu02 );
+        
+        let tableFloatMu02 = document.querySelector('#results_browser_float_mu02');
+        tableFloatMu02.innerHTML = resultFloatMu02;
+
+        let resultDoubleMu02 = Module.testLCPDoubleMu02();
+        console.log( resultDoubleMu02 );
+        
+        let tableDoubleMu02 = document.querySelector('#results_browser_double_mu02');
+        tableDoubleMu02.innerHTML = resultDoubleMu02;
+
+        let resultFloatMu08 = Module.testLCPFloatMu08();
+        console.log( resultFloatMu08 );
+        
+        let tableFloatMu08 = document.querySelector('#results_browser_float_mu08');
+        tableFloatMu08.innerHTML = resultFloatMu08;
+
+        let resultDoubleMu08 = Module.testLCPDoubleMu08();
+        console.log( resultDoubleMu08 );
+        
+        let tableDoubleMu08 = document.querySelector('#results_browser_double_mu08');
+        tableDoubleMu08.innerHTML = resultDoubleMu08;
+
+        let resultFloatSym = Module.testLCPFloatSymmetric();
+        console.log( resultFloatSym );
+        
+        let tableFloatSym = document.querySelector('#results_browser_float_sym');
+        tableFloatSym.innerHTML = resultFloatSym;
+
+        let resultDoubleSym = Module.testLCPDoubleSymmetric();
+        console.log( resultDoubleSym );
+        
+        let tableDoubleSym = document.querySelector('#results_browser_double_sym');
+        tableDoubleSym.innerHTML = resultDoubleSym;
+      }
+    };
+  </script>
+  <script src="lcp.js"></script>
+</body>
+
+</html>

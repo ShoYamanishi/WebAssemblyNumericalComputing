@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main_style.css">
+  <title>WebAssembly Numerical Computing: Memcpy</title>
+
+</head>
+
+<body>
+
+  <main>
+    <div class="description">
+
+      <h1>WebAssembly Numerical Computing: Memcpy</h1>
+
+      <p>
+          This page measures the performance of 
+          transferring the content of a consecutive region in the memory to another non-overlapping region.
+      </p>
+
+      <p>
+          The numbers below are in milliseconds.
+          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
+          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
+          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+      </p>
+
+    </div>
+    <div class="tables">
+      <h3>Results from This Browser</h3>
+      <table id="results_browser" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+        <tr><th>length in bytes</th><th>1K</th><th>16K</th><th>256K</th><th>4M</th><th>64M</th></tr>
+        <tr><td>plain c++</td><td>7.91e-05</td><td>0.0006541</td><td>0.0166957</td><td>0.202971</td><td>2.28581</td></tr>
+        <tr><td>memcpy()</td><td>7.48e-05</td><td>0.0006541</td><td>0.012475</td><td>0.152725</td><td>2.15882</td></tr>
+      </table>
+
+    </div>
+  </main>
+
+  <script>
+    let Module = {
+      onRuntimeInitialized: () => {
+
+        let resultHTML = Module.testMemcpy();
+        console.log( resultHTML );
+        
+        let table = document.querySelector('#results_browser');
+        table.innerHTML = resultHTML;
+      }
+    };
+  </script>
+  <script src="memcpy.js"></script>
+</body>
+
+</html>

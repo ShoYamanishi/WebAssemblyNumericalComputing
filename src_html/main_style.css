@@ -1,0 +1,25 @@
+main {
+  font-family: sans-serif;
+  margin: 4em;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #e0dcdc;
+}
+
+td,th {
+  padding: 8px;
+}
+
+.results_native {
+    font-size: 70%;
+    color: #303030;
+}
+
+h2 {
+    margin-top: 4em;
+}

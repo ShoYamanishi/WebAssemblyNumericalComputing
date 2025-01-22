@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main_style.css">
+  <title>WebAssembly Numerical Computing: Dot Product</title>
+
+</head>
+
+<body>
+
+  <main>
+
+    <div class="description">
+      <h1>WebAssembly Numerical Computing: Dot Product</h1>
+      <p>
+          This page measures the performance of the inner product operation of two vectors.
+      </p>
+
+      <p>
+          The numbers below are in milliseconds.
+          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
+          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
+          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+      </p>
+
+    </div>
+
+    <div>
+      <h2>Results for SDot (float)</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_sdot" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>vector length</th><th>32</th><th>64</th><th>128</th><th>512</th><th>2K</th><th>8K</th><th>32K</th><th>128K</th><th>512K</th></tr>
+        <tr><td>plain c++</td><td>8.458e-05</td><td>0.00013958</td><td>0.00025417</td><td>0.00093708</td><td>0.00302664</td><td>0.0213737</td><td>0.0846538</td><td>0.214786</td><td>0.502708</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>5.252e-05</td><td>6.875e-05</td><td>9.209e-05</td><td>0.00026831</td><td>0.00076675</td><td>0.00628624</td><td>0.0191204</td><td>0.0450538</td><td>0.123067</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>4.875e-05</td><td>6.543e-05</td><td>7.954e-05</td><td>0.00014542</td><td>0.00045541</td><td>0.00291581</td><td>0.00963662</td><td>0.0225129</td><td>0.0616391</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>6.082e-05</td><td>7.541e-05</td><td>8.917e-05</td><td>0.00013461</td><td>0.00038625</td><td>0.00152747</td><td>0.00778375</td><td>0.0169117</td><td>0.0506125</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>8.877e-05</td><td>0.00010206</td><td>0.00011542</td><td>0.00014692</td><td>0.00037999</td><td>0.00146873</td><td>0.00776463</td><td>0.0165596</td><td>0.050413</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.00010879</td><td>0.00018082</td><td>0.00033287</td><td>0.00101837</td><td>0.00399543</td><td>0.0314075</td><td>0.0923008</td><td>0.200603</td><td>0.656462</td></tr>
+
+      </table>
+    </div>
+
+    <div>
+      <h2>Results for DDot (double)</h2>
+
+      <h3>Results from This Browser</h3>
+      <table id="results_browser_ddot" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>vector length</th><th>32</th><th>64</th><th>128</th><th>512</th><th>2K</th><th>8K</th><th>32K</th><th>128K</th><th>512K</th></tr>
+        <tr><td>plain c++</td><td>2.083e-05</td><td>4.083e-05</td><td>0.00010501</td><td>0.00045839</td><td>0.00189716</td><td>0.00782672</td><td>0.030665</td><td>0.123096</td><td>0.49396</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>1.863e-05</td><td>2.266e-05</td><td>5.293e-05</td><td>0.00023167</td><td>0.00095124</td><td>0.00384454</td><td>0.0153404</td><td>0.062303</td><td>0.250665</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>1.797e-05</td><td>1.944e-05</td><td>2.918e-05</td><td>0.00011833</td><td>0.00047793</td><td>0.00193294</td><td>0.00767169</td><td>0.0308004</td><td>0.130498</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>1.923e-05</td><td>2.091e-05</td><td>2.751e-05</td><td>7.755e-05</td><td>0.00025875</td><td>0.00099332</td><td>0.00624402</td><td>0.0247596</td><td>0.113049</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>1.877e-05</td><td>2.057e-05</td><td>3.627e-05</td><td>7.871e-05</td><td>0.00024335</td><td>0.00094615</td><td>0.00601248</td><td>0.0240846</td><td>0.111229</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>2.174e-05</td><td>6.421e-05</td><td>0.00014124</td><td>0.00062167</td><td>0.00254084</td><td>0.0102375</td><td>0.0410279</td><td>0.164424</td><td>0.65789</td></tr>
+      </table>
+    </div>
+
+  </main>
+
+  <script>
+    let Module = {
+      onRuntimeInitialized: () => {
+
+        let resultSDot = Module.testSDot();
+        console.log( resultSDot );
+        
+        let tableSDot = document.querySelector('#results_browser_sdot');
+        tableSDot.innerHTML = resultSDot;
+
+        let resultDDot = Module.testDDot();
+        console.log( resultDDot );
+        
+        let tableDDot = document.querySelector('#results_browser_ddot');
+        tableDDot.innerHTML = resultDDot;
+      }
+    };
+  </script>
+  <script src="dot.js"></script>
+</body>
+
+</html>

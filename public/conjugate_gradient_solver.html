@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main_style.css">
+  <title>WebAssembly Numerical Computing: Conjugate Gradient Solver</title>
+
+</head>
+
+<body>
+
+  <main>
+
+    <div class="description">
+      <h1>WebAssembly Numerical Computing: Conjugate Gradient Solver</h1>
+      <p>
+          This page measures the performance of the conjugate gradient solver.
+          The number of iterations vary, and depend on the condition number.
+      </p>
+
+      <p>
+          The numbers below are in milliseconds.
+          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
+          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
+          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+      </p>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Condition Number 10.0</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_10" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.130383</td><td>0.677367</td><td>1.88113</td><td>5.99898</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Condition Number 1000.0</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_1000" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.0426167</td><td>0.520079</td><td>3.95988</td><td>22.3562</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Float, Condition Number 100000.0</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float_100000" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.059421</td><td>0.418004</td><td>5.81804</td><td>41.6464</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Condition Number 10.0</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_10" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.0400206</td><td>0.264983</td><td>1.17659</td><td>6.27949</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Condition Number 1000.0</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_1000" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.0644375</td><td>0.463008</td><td>3.17286</td><td>35.2818</td></tr>
+
+      </table>
+
+    </div>
+
+    <div>
+
+      <h2>Results for Double, Condition Number 100000.0</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_double_100000" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
+        <tr><td>plain c++</td><td>0.0514126</td><td>0.505725</td><td>3.6751</td><td>25.9527</td></tr>
+
+      </table>
+
+    </div>
+
+  </main>
+
+  <script>
+    let Module = {
+      onRuntimeInitialized: () => {
+
+        let resultFloat10 = Module.testConjugateGradientFloatCond10();
+        console.log( resultFloat10 );
+        
+        let tableFloat10 = document.querySelector('#results_browser_float_10');
+        tableFloat10.innerHTML = resultFloat10;
+
+        let resultFloat1000 = Module.testConjugateGradientFloatCond1000();
+        console.log( resultFloat1000 );
+        
+        let tableFloat1000 = document.querySelector('#results_browser_float_1000');
+        tableFloat1000.innerHTML = resultFloat1000;
+
+        let resultFloat100000 = Module.testConjugateGradientFloatCond100000();
+        console.log( resultFloat100000 );
+        
+        let tableFloat100000 = document.querySelector('#results_browser_float_100000');
+        tableFloat100000.innerHTML = resultFloat100000;
+
+        let resultDouble10 = Module.testConjugateGradientDoubleCond10();
+        console.log( resultDouble10 );
+        
+        let tableDouble10 = document.querySelector('#results_browser_double_10');
+        tableDouble10.innerHTML = resultDouble10;
+
+        let resultDouble1000 = Module.testConjugateGradientDoubleCond1000();
+        console.log( resultDouble1000 );
+        
+        let tableDouble1000 = document.querySelector('#results_browser_double_1000');
+        tableDouble1000.innerHTML = resultDouble1000;
+
+        let resultDouble100000 = Module.testConjugateGradientDoubleCond100000();
+        console.log( resultDouble100000 );
+        
+        let tableDouble100000 = document.querySelector('#results_browser_double_100000');
+        tableDouble100000.innerHTML = resultDouble100000;
+      }
+    };
+  </script>
+  <script src="conjugate_gradient_solver.js"></script>
+</body>
+
+</html>

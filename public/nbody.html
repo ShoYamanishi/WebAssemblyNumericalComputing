@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main_style.css">
+  <title>WebAssembly Numerical Computing: N-Body</title>
+
+</head>
+
+<body>
+
+  <main>
+    <div class="description">
+      <h1>WebAssembly Numerical Computing: N-Body</h1>
+      <p>
+          This page measures the performance of the one step for the N-Body simulation,
+          where each of N objects interacts with all the other N - 1 objects.
+          It simulates a simplified particle physics simulation in 3D.
+          At each step, at each particle, N-1 forces are collected based on their distances,
+          and the velocity and the position are updated by the simple Euler step.
+          <ul>
+            <li>SoA: Structure of Arrays</li>
+            <li>AoS: Array of Structures</li>
+          </ul>
+      </p>
+
+      <p>
+          The numbers below are in milliseconds.
+          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
+          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
+          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+      </p>
+
+    </div>
+    <div class="tables">
+      <h3>Results from This Browser</h3>
+      <table id="results_browser" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>number of bodies</th><th>32</th><th>64</th><th>128</th><th>256</th><th>512</th><th>1K</th><th>2K</th></tr>
+        <tr><td>plain c++ AoS</td><td>0.0157333</td><td>0.0483127</td><td>0.200241</td><td>0.629667</td><td>1.6185</td><td>3.76973</td><td>14.6088</td></tr>
+        <tr><td>plain c++ SoA</td><td>0.0213708</td><td>0.0663542</td><td>0.187179</td><td>0.604038</td><td>1.41922</td><td>3.85906</td><td>15.4187</td></tr>
+        <tr><td>NEON SoA loop unrolled order 1</td><td>0.0134416</td><td>0.0399584</td><td>0.0777666</td><td>0.242538</td><td>0.498675</td><td>1.48865</td><td>5.91231</td></tr>
+        <tr><td>NEON SoA loop unrolled order 2</td><td>0.0134459</td><td>0.0363375</td><td>0.0769125</td><td>0.205758</td><td>0.46405</td><td>1.48536</td><td>5.88743</td></tr>
+        <tr><td>NEON SoA loop unrolled order 4</td><td>0.0103916</td><td>0.0319373</td><td>0.0768624</td><td>0.204854</td><td>0.441771</td><td>1.47469</td><td>5.85703</td></tr>
+        <tr><td>NEON SoA loop unrolled order 8</td><td>0.0103959</td><td>0.0318417</td><td>0.0765084</td><td>0.205429</td><td>0.430571</td><td>1.47356</td><td>5.84976</td></tr>
+
+      </table>
+
+    </div>
+  </main>
+
+  <script>
+    let Module = {
+      onRuntimeInitialized: () => {
+
+        let resultHTML = Module.testNBody();
+        console.log( resultHTML );
+        
+        let table = document.querySelector('#results_browser');
+        table.innerHTML = resultHTML;
+      }
+    };
+  </script>
+  <script src="nbody.js"></script>
+</body>
+
+</html>

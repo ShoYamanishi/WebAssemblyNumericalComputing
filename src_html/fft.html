@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main_style.css">
+  <title>WebAssembly Numerical Computing: FFT 512-Point Radix 2</title>
+
+</head>
+
+<body>
+
+  <main>
+
+    <div class="description">
+      <h1>WebAssembly Numerical Computing: FFT 512-Point Radix 2</h1>
+      <p>
+          This page measures the performance of the 512-point radix-2 FFT.
+         
+      </p>
+
+      <p>
+          The numbers below are in milliseconds.
+          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
+          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
+          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+      </p>
+
+    </div>
+
+    <div>
+      <h2>Results for Float</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_float" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>FFT 512</th><th>-</th></tr>
+        <tr><td>plain c++</td><td>0.00619958</td></tr>
+        <tr><td>NEON</td><td>0.0043021</td></tr>
+
+      </table>
+    </div>
+
+    <div>
+      <h2>Results for Double</h2>
+
+      <h3>Results from This Browser</h3>
+      <table id="results_browser_double" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>FFT 512</th><th>-</th></tr>
+        <tr><td>plain c++</td><td>0.00778674</td></tr>
+        <tr><td>NEON</td><td>0.00777999</td></tr>
+
+      </table>
+    </div>
+
+  </main>
+
+  <script>
+    let Module = {
+      onRuntimeInitialized: () => {
+
+        let resultFloat = Module.testFFTFloat();
+        console.log( resultFloat );
+        
+        let tableFloat = document.querySelector('#results_browser_float');
+        tableFloat.innerHTML = resultFloat;
+
+        let resultDouble = Module.testFFTDouble();
+        console.log( resultDouble );
+        
+        let tableDouble = document.querySelector('#results_browser_double');
+        tableDouble.innerHTML = resultDouble;
+      }
+    };
+  </script>
+  <script src="fft.js"></script>
+</body>
+
+</html>

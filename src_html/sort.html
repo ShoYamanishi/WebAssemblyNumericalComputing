@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main_style.css">
+  <title>WebAssembly Numerical Computing: Sort</title>
+
+</head>
+
+<body>
+
+  <main>
+
+    <div class="description">
+      <h1>WebAssembly Numerical Computing: Sort</h1>
+      <p>
+          This page measures the performance of the in-place sort of an array.
+      </p>
+
+      <p>
+          The numbers below are in milliseconds.
+          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
+          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
+          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+      </p>
+    </div>
+
+    <div class="tables_int">
+      <h2>Results for Int</h2>
+
+      <h3>Results from This Browser</h3>    
+      <table id="results_browser_int" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>number of elements</th><th>32</th><th>128</th><th>512</th><th>2K</th><th>8K</th><th>32K</th><th>128K</th><th>512K</th><th>2M</th></tr>
+        <tr><td>std::sort()</td><td>0.0003751</td><td>0.0015458</td><td>0.0082667</td><td>0.0831582</td><td>0.771096</td><td>2.563</td><td>6.2947</td><td>26.1087</td><td>118.425</td></tr>
+        <tr><td>boost::sort::spreadsort</td><td>0.0003542</td><td>0.0019375</td><td>0.009804</td><td>0.0372544</td><td>0.211679</td><td>0.703617</td><td>2.22988</td><td>9.97782</td><td>46.3306</td></tr>
+        <tr><td>boost::sort::block_indirect_sort()</td><td>0.0003958</td><td>0.0018791</td><td>0.0089374</td><td>0.0802084</td><td>0.2704</td><td>0.793721</td><td>2.35053</td><td>10.1391</td><td>42.7424</td></tr>
+
+      </table>
+    </div>
+
+    <div class="tables_float">
+      <h2>Results for Float</h2>
+
+      <h3>Results from This Browser</h3>
+      <table id="results_browser_float" border="1">
+      <th>Calculating...</th>
+      </table>
+
+      <h3>[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
+      <table class="results_native" border="1">
+
+        <tr><th>number of elements</th><th>32</th><th>128</th><th>512</th><th>2K</th><th>8K</th><th>32K</th><th>128K</th><th>512K</th><th>2M</th></tr>
+        <tr><td>std::sort()</td><td>0.0001292</td><td>0.0006957</td><td>0.0040374</td><td>0.0557915</td><td>0.337062</td><td>1.61383</td><td>7.34251</td><td>34.0775</td><td>150.227</td></tr>
+        <tr><td>boost::sort::spreadsort</td><td>0.0001417</td><td>0.0006418</td><td>0.0031125</td><td>0.0249166</td><td>0.139479</td><td>0.685762</td><td>2.50295</td><td>10.329</td><td>48.6352</td></tr>
+        <tr><td>boost::sort::block_indirect_sort()</td><td>0.0001542</td><td>0.0005833</td><td>0.0027832</td><td>0.0169166</td><td>0.133054</td><td>0.628038</td><td>2.65688</td><td>11.3843</td><td>48.318</td></tr>
+
+      </table>
+    </div>
+
+  </main>
+
+  <script>
+    let Module = {
+      onRuntimeInitialized: () => {
+
+        let resultInt = Module.testSortInt();
+        console.log( resultInt );
+        
+        let tableInt = document.querySelector('#results_browser_int');
+        tableInt.innerHTML = resultInt;
+
+        let resultFloat = Module.testSortFloat();
+        console.log( resultFloat );
+        
+        let tableFloat = document.querySelector('#results_browser_float');
+        tableFloat.innerHTML = resultFloat;
+      }
+    };
+  </script>
+  <script src="sort.js"></script>
+</body>
+
+</html>
