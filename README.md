@@ -2,17 +2,16 @@
 
 A study on the numerical computing with WebAssembly in C++ on the web browsers
 
-<img src="docs/readme01.png" alt="isolated" width="200"/>
-<img src="docs/readme02.png" alt="isolated" width="200"/>
+![](docs/banner.png)
 
 # Run the Test Scripts on Your Browser
-You can run the performance tests on your browser.
+You can run the test scripts on your browser.
 You need to run a local server, such as `http.server` in Python3.
-
 The `./public` directory contains all the necessary files (*.html, *.css, *.js, *.wasm. *.data ) for the local HTTP server.
 
 For example:
 ```
+$ git clone git@github.com:ShoYamanishi/WebAssemblyNumericalComputing.git
 $ cd WebAssemblyNumericalComputing/public
 $ python3 -m http.server 5173  
 Serving HTTP on :: port 5173 (http://[::]:5173/) ...
@@ -20,13 +19,13 @@ Serving HTTP on :: port 5173 (http://[::]:5173/) ...
 
 Then open 'http://localhost:5173/' on your browser.
 This will get you the top-level page, which contains the links to the actual test pages.
-Clicking one of those links will open a page for the specific type of computation.
+Clicking on one of those links will open a page for the specific type of computation.
 The page automatically starts the test script to measure the performance.
 
 The test script is written in C++ and compiled to WASM by Emscripten.
 When it finishes, the page will update the tables with the times measured in milliseconds in the tables.
 
-Each table is accompanied by a smaller table below.
+Each table is accompanied by a smaller table below it.
 The smaller table contains the numbers sampled from the test program compiled
 from the same C++ code by clang++, and natively executed on Mac Mini M1 2020.
 You can make the side-by-side comparison of the time taken on your browser and on the Mac for each problem type and the size.
@@ -39,32 +38,32 @@ some glue code in JS. The C++ codes utilize the following libraries where applic
 - [Eigen3](https://gitlab.com/libeigen/eigen).
 - [BLAS routines from CLAPACK's reference implementation from Netlib](https://www.netlib.org/clapack/).
 
-When you open one of the HTML files through the HTTP request on a browser, it will
+When you open one of the HTML files through a HTTP request on a browser, it will
 automatically load the WASM code and starts executing it to measure the performance.
 When it finishes its execution, the tables on the HTML page are updated and filled with
 numbers in milliseconds.
-Most of the test data are artificially generated at runtime by the random number generators except for the LCP, for which some data sampled from the real ridig body simulations are used.
+Most of the test data are artificially generated at runtime on the browser by the random number generators except for the LCP, for which some data sampled from the real rigid body simulations are used.
 
 The types of the computation and the problem sizes are chosen to reflect the typical real use cases in the interactive UI applications such as games.
-Therefore the use cases such as training of large machine language models or large scale computer simulations are excluded.
+Therefore, the use cases such as training of large machine language models, or large scale computer simulations are not considered.
 
 Following topics are covered in this project.
 
-- Memory Copy
-- Element-wise Multiplication of Two Vectors
-- Dot Product Calculation
-- Prefix-Sum
-- In-Place Sort
-- N-Body Particle Simulation
+- Memory copy
+- Element-wise multiplication of two vectors
+- Dot product calculation
+- Prefix-sum
+- In-place sort
+- N-body particle simulation
 - Convolution 2D
-- Sparse Matrix-Vector Multiplication
-- Dense Matrix-Vector Multiplication
-- Cholesky Factorization
-- Jacobi Solver
-- Gauss-Seidel Solver
-- Lemke LCP Solver
-- Conjugate Gradient Solver
-- 512-Point Radix-2 FFT
+- Sparse matrix-vector multiplication
+- Dense matrix-vector multiplication
+- Cholesky factorization
+- Jacobi solver
+- Gauss-Seidel solver
+- Lemke LCP solver
+- Conjugate gradient solver
+- 512-point radix-2 FFT
 
 The GPU capacity available through WebGPU and WebGL is not considered at moment
 for the following reason.
@@ -85,16 +84,14 @@ The former is already popular and covered by many web pages and examples, many o
 which render stunningly beautiful animating graphics, and this project does not have
 to cover it. The latter is not a realistic use case on the web browser.
 
-In general, for the other types of computations on GPU, the problem sizes must be significantly to be able to amortize the overhead of the GPU invokation and take
-advantage of its parallelism, and the time taken for the computation, either by CPU
-or GPU will be too long (in seconds and minutes) to be useful for the interactive
-applications.
+In general, for the other types of computations on GPU, the problem sizes must be significantly large enough to be able to amortize the overhead of the GPU invokation and take
+advantage of its parallelism, and for those large problem sizes, the time taken for the computation, either by CPU or GPU will be too long (in seconds and minutes) to be useful for the interactive applications.
 
 If you are interestedin the numerical computing on Mac and iOS devices,
 please check my sister project [AppleNumericalComputing on Github](https://github.com/ShoYamanishi/AppleNumericalComputing).
 It utilizes Accelerate framework and Metal (GPU) compute shaders, as well as Arm NEON SIMD, and CPU multi-threadding.
 
-# Topics
+# C++ Implementations
 
 ### Memory Copy
 This is a simple copy of the content of a region in memory to another non-overlapping region.
@@ -113,23 +110,23 @@ Following implementations are tested.
 
 - plain implementation in C++.
 - C++ with NEON SIMD.
-- the reference implementation of saxpy/daxpy from CLPACK on Netlib.
+- [the reference implementation of saxpy/daxpy from CLPACK on Netlib](https://www.netlib.org/clapack/).
 
 The C++ test code is found in [src/test_saxpy.cpp](src/test_saxpy.cpp).
 
 ### Dot Product Calculation
-This is the inner product calculation of the vector pairs of various sizes.
+This is the inner product operation for two vectors in various sizes.
 
 Following implementations are tested.
 
 - plain implementation in C++.
 - C++ with NEON SIMD.
-- the reference implementation of sdot/ddot from CLPACK on Netlib.
+- [the reference implementation of sdot/ddot from CLPACK on Netlib](https://www.netlib.org/clapack/).
 
 The C++ test code is found in [src/test_dot.cpp](src/test_dot.cpp).
 
 ### Prefix-Sum
-This is a scanning operation, which is parallelized.
+This is a scanning operation, which can be partially parallelized.
 
 Following implementations are tested.
 
@@ -139,7 +136,7 @@ Following implementations are tested.
 The C++ test code is found in [src/test_prefix_sum.cpp](src/test_prefix_sum.cpp).
 
 ### In-Place Sort
-This is for the in-place sort algorithms.
+This is for the in-place sorting algorithms.
 
 Following implementations are tested.
 
@@ -153,16 +150,18 @@ The C++ test code is found in [src/test_sort.cpp](src/test_sort.cpp).
 This is for the performance of one step for the N-Body simulation,
 where each of N objects interacts with all the other N - 1 objects.
 It simulates a simplified particle physics simulation in 3D.
-At each step, at each particle, N-1 forces are collected based on their distances,
-and the velocity and the position are updated by the simple Euler step.
+At each step, for each particle, N-1 forces are collected based on its distances to the others,
+and the velocity and the position are updated by a simple Euler step.
 
 Following implementations are tested.
 
-- plain implementation in C++ with the 'array of structures' data structure.
-- plain implementation in C++ with the 'structure of arrays' data structure.
-- C++ with NEON SIMD with the 'structure of arrays' data structure.
+- plain implementation in C++ with the 'array of structures' data arrangement.
+- plain implementation in C++ with the 'structure of arrays' data arrangement.
+- C++ with NEON SIMD with the 'structure of arrays' data arrangement.
 
-The C++ test code is found in [src/test_nbody.cpp](src/test_nbody.cpp).
+The C++ test code is found in [src/test_nbody.cpp](src/test_nbody.cpp),
+ [src/nbody_elements_impl.h](src/nbody_elements_impl.h), and
+ [src/nbody_elements.h](src/nbody_elements.h).
 
 ### Convolution 2D
 This is for the 2D filtering operation with the convolution with a 5x5 kernel.
@@ -174,7 +173,7 @@ The C++ test code is found in [src/test_convolution_2d.cpp](src/test_convolution
 
 ### Sparse Matrix-Vector Multiplication
 This is for the performance of the sparse matrix-vector multiplication, where the matrix
-elements are stored in the CSR ( compressed sparse row) form. Only a plain implementation in C++ is considered.
+elements are stored in the CSR (compressed sparse row) form. Only a plain implementation in C++ is considered.
 
 The C++ test code is found in [src/test_sparse_matrix_vector.cpp](src/test_sparse_matrix_vector.cpp).
 
@@ -184,7 +183,7 @@ This is for the performance of the dense matrix-vector multiplication.
 Following implementations are tested.
 - plain implementation in C++.
 - C++ with NEON SIMD.
-- the reference implementation of sgemv/dgemv from CLPACK on Netlib.
+- [the reference implementation of sgemv/dgemv from CLPACK on Netlib](https://www.netlib.org/clapack/).
 
 The C++ test code is found in [src/test_dense_matrix_vector.cpp](src/test_dense_matrix_vector.cpp).
 
@@ -194,9 +193,11 @@ Cholesky factorization.
 
 Following implementations are tested.
 - plain implementations in C++.
-- Eigen::LLT from Eigen3.
+- [Eigen::LLT from Eigen3](https://eigen.tuxfamily.org/dox/classEigen_1_1LLT.html).
 
-The C++ test code is found in [src/test_cholesky.cpp](src/test_cholesky.cpp).
+The C++ test code is found in [src/test_cholesky.cpp](src/test_cholesky.cpp),
+[src/test_case_cholesky_baseline.h](src/test_case_cholesky_baseline.h), and
+[src/test_case_cholesky_eigen3.h](src/test_case_cholesky_eigen3.h).
 
 ### Jacobi Solver
 This is for the performance of the iterative Jacobi solver.
@@ -226,7 +227,10 @@ Following implementations are tested.
 - plain implementations in C++.
 - C++ with NEON SIMD.
 
-The C++ test code is found in [src/test_lcp.cpp](src/test_lcp.cpp).
+The C++ test code is found in [src/test_lcp.cpp](src/test_lcp.cpp),
+[src/test_case_lcp_lemke_baseline.h](src/test_case_lcp_lemke_baseline.h),
+[src/test_case_lcp_lemke_neon.h](src/test_case_lcp_lemke_neon.h), and
+[src/test_case_lcp.h](src/test_case_lcp.h), and
 
 ### Conjugate Gradient Solver
 This is for the performance of the conjugate gradient solver.
@@ -235,7 +239,7 @@ The test data are artifically generated with the condition numbers of 10.0, 1000
 The C++ test code is found in [src/test_conjugate_gradient_solver.cpp](src/test_conjugate_gradient_solver.cpp).
 
 ### 512-Point Radix-2 FFT
-This page measures the performance of the 512-point radix-2 FFT.
+This is for the performance of the 512-point radix-2 FFT.
 This type of operation is usually done with a DSP, but this topic may be still
 useful to get some rough idea about what kind of performance you can get on the browser
 for this type of operations. Only a plain implementation in C++ is considered.
@@ -243,17 +247,17 @@ for this type of operations. Only a plain implementation in C++ is considered.
 The C++ test code is found in [src/test_fft.cpp](src/test_fft.cpp).
 
 # Build
-If you want to build the contents in the [public/](public/) directory from the
+If you want to build the contents (WASM, JS, HTML, and CSS) in the [public/](public/) directory from the
 C++ files, you can use the following instruction.
 
 ## Requirements:
 
 ### Emscripten
 
-Follow the instruction on [the official page](https://emscripten.org/).
+Follow the instruction in [the official page](https://emscripten.org/).
 
 ### Eigen3 (used for Cholesky factorization)
-You can skip this step, if you don't run the tests for Cholesky factorization.
+You can skip this step, if you don't want to run the tests for Cholesky factorization.
 
 - Download the zip file from the following official location:
  https://gitlab.com/libeigen/eigen/-/releases/3.4.0 on Gitlab.
