@@ -2,8 +2,8 @@
 
 A study on the numerical computing with WebAssembly in C++ on the web browsers
 
-<img src="docs/readme01.png" alt="isolated" width="300"/>
-<img src="docs/readme02.png" alt="isolated" width="300"/>
+<img src="docs/readme01.png" alt="isolated" width="200"/>
+<img src="docs/readme02.png" alt="isolated" width="200"/>
 
 # Run the Test Scripts on Your Browser
 You can run the performance tests on your browser.
@@ -243,6 +243,8 @@ for this type of operations. Only a plain implementation in C++ is considered.
 The C++ test code is found in [src/test_fft.cpp](src/test_fft.cpp).
 
 # Build
+If you want to build the contents in the [public/](public/) directory from the
+C++ files, you can use the following instruction.
 
 ## Requirements:
 
@@ -277,7 +279,7 @@ Run the build script [build.sh](build.sh).
 It's a small convenience script to invoke emcc to compile the c++ files to WASM.
 This will arrange all the necessary files in [public/](public/).
 
-# Build for MacOS.
+# Build for Native MacOS.
 
 You can run the same c++ test programs on an MacOS for ARM.
 They have the following dependencies.
@@ -296,6 +298,6 @@ This will generate the binaries in `native_output/`.
 The boost library is assumed to be installed at `/opt/homebrew/include`.
 
 It's a small convenience script to invoke clang++. It should work
-on any other ARM environment that has a LLVM, Eigen3, and Boost.
+on any other ARM environment that has a LLVM, Eigen3, and Boost after adjusting the include paths if necessary.
 
 
