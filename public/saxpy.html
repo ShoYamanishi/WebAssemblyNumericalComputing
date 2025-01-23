@@ -17,15 +17,14 @@
     <div class="description">
       <h1>WebAssembly Numerical Computing: Saxpy/Daxpy</h1>
       <p>
-          This page measures the performance of element-wise multiplication of two vectors.
+          This page measures the performance of the element-wise multiplication of two vectors.
          
       </p>
 
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
 
     </div>
@@ -40,13 +39,15 @@
 
       <h3 class="results_native">[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
       <table class="results_native" border="1">
+
         <tr><th>vector length</th><th>128</th><th>512</th><th>2K</th><th>8K</th><th>32K</th><th>128K</th><th>512K</th><th>4M</th></tr>
-        <tr><td>plain c++</td><td>8.209e-05</td><td>0.00015499</td><td>0.00050041</td><td>0.00210334</td><td>0.0103296</td><td>0.0350262</td><td>0.07796</td><td>0.826939</td></tr>
-        <tr><td>NEON loop unrolled order 1</td><td>9.91e-05</td><td>0.0002879</td><td>0.00093292</td><td>0.00365254</td><td>0.0165799</td><td>0.0484821</td><td>0.120345</td><td>0.913997</td></tr>
-        <tr><td>NEON loop unrolled order 2</td><td>9.457e-05</td><td>0.00026961</td><td>0.00074664</td><td>0.004005</td><td>0.0156547</td><td>0.0411467</td><td>0.0953866</td><td>0.850643</td></tr>
-        <tr><td>NEON loop unrolled order 4</td><td>9.542e-05</td><td>0.00025</td><td>0.00073961</td><td>0.00370294</td><td>0.0143971</td><td>0.0378892</td><td>0.0850695</td><td>0.831484</td></tr>
-        <tr><td>NEON loop unrolled order 8</td><td>9.496e-05</td><td>0.00026499</td><td>0.00078417</td><td>0.00352875</td><td>0.0118408</td><td>0.0326113</td><td>0.0814104</td><td>0.827173</td></tr>
-        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.00011791</td><td>0.00033835</td><td>0.00103496</td><td>0.00415499</td><td>0.0113434</td><td>0.0297708</td><td>0.0736817</td><td>0.819513</td></tr>
+        <tr><td>plain c++</td><td>2.58e-05</td><td>4.79e-05</td><td>0.000168</td><td>0.000734</td><td>0.00421</td><td>0.0167</td><td>0.0607</td><td>0.76</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>2.83e-05</td><td>9.83e-05</td><td>0.000326</td><td>0.0014</td><td>0.00676</td><td>0.0255</td><td>0.104</td><td>0.891</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>3.08e-05</td><td>8.42e-05</td><td>0.000304</td><td>0.00132</td><td>0.00596</td><td>0.023</td><td>0.0909</td><td>0.822</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>2.67e-05</td><td>7.71e-05</td><td>0.000296</td><td>0.00127</td><td>0.00567</td><td>0.0219</td><td>0.0838</td><td>0.802</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>3.04e-05</td><td>7.5e-05</td><td>0.000282</td><td>0.00124</td><td>0.00548</td><td>0.0213</td><td>0.0815</td><td>0.801</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>2.46e-05</td><td>9.45e-05</td><td>0.000358</td><td>0.00152</td><td>0.00525</td><td>0.0194</td><td>0.0739</td><td>0.794</td></tr>
+
       </table>
     </div>
 
@@ -60,13 +61,15 @@
 
       <h3 class="results_native">[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
       <table class="results_native" border="1">
+
         <tr><th>vector length</th><th>128</th><th>512</th><th>2K</th><th>8K</th><th>32K</th><th>128K</th><th>512K</th><th>4M</th></tr>
-        <tr><td>plain c++</td><td>3.373e-05</td><td>7.168e-05</td><td>0.00025334</td><td>0.00170413</td><td>0.00709873</td><td>0.0296067</td><td>0.129529</td><td>1.68669</td></tr>
-        <tr><td>NEON loop unrolled order 1</td><td>4.54e-05</td><td>0.00013925</td><td>0.00051462</td><td>0.00282672</td><td>0.0112858</td><td>0.0464179</td><td>0.222875</td><td>1.84782</td></tr>
-        <tr><td>NEON loop unrolled order 2</td><td>4.253e-05</td><td>0.00013373</td><td>0.00048551</td><td>0.00264838</td><td>0.0105992</td><td>0.043612</td><td>0.18951</td><td>1.7416</td></tr>
-        <tr><td>NEON loop unrolled order 4</td><td>3.671e-05</td><td>0.0001246</td><td>0.00046627</td><td>0.00246293</td><td>0.0100671</td><td>0.0418221</td><td>0.175217</td><td>1.74588</td></tr>
-        <tr><td>NEON loop unrolled order 8</td><td>3.624e-05</td><td>0.00011838</td><td>0.00045793</td><td>0.00237204</td><td>0.00982753</td><td>0.0401951</td><td>0.171931</td><td>1.72717</td></tr>
-        <tr><td>BLAS Netlib's CLAPACK reference</td><td>4.372e-05</td><td>0.00014838</td><td>0.00056917</td><td>0.00230343</td><td>0.0090787</td><td>0.0364488</td><td>0.156808</td><td>1.71069</td></tr>
+        <tr><td>plain c++</td><td>2.88e-05</td><td>7.12e-05</td><td>0.000254</td><td>0.0017</td><td>0.00731</td><td>0.0294</td><td>0.124</td><td>1.7</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>4.79e-05</td><td>0.000145</td><td>0.000513</td><td>0.00281</td><td>0.0114</td><td>0.0469</td><td>0.217</td><td>1.94</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>4e-05</td><td>0.000134</td><td>0.000494</td><td>0.0026</td><td>0.0106</td><td>0.0437</td><td>0.185</td><td>1.79</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>3.71e-05</td><td>0.00013</td><td>0.000468</td><td>0.00246</td><td>0.0101</td><td>0.0419</td><td>0.171</td><td>1.74</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>3.62e-05</td><td>0.000117</td><td>0.00046</td><td>0.00238</td><td>0.00985</td><td>0.0405</td><td>0.167</td><td>1.71</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>4.25e-05</td><td>0.000145</td><td>0.000573</td><td>0.0023</td><td>0.0091</td><td>0.0367</td><td>0.152</td><td>1.7</td></tr>
+        
       </table>
     </div>
 

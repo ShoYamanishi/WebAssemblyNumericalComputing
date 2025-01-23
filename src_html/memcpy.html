@@ -23,10 +23,9 @@
       </p>
 
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
 
     </div>
@@ -38,9 +37,11 @@
 
       <h3 class="results_native">[Reference] Results from Mac Mini M1 2020 Native in C++</h3>
       <table class="results_native" border="1">
+
         <tr><th>length in bytes</th><th>1K</th><th>16K</th><th>256K</th><th>4M</th><th>64M</th></tr>
-        <tr><td>plain c++</td><td>7.91e-05</td><td>0.0006541</td><td>0.0166957</td><td>0.202971</td><td>2.28581</td></tr>
-        <tr><td>memcpy()</td><td>7.48e-05</td><td>0.0006541</td><td>0.012475</td><td>0.152725</td><td>2.15882</td></tr>
+        <tr><td>plain c++</td><td>4.98e-05</td><td>0.000375</td><td>0.0101</td><td>0.117</td><td>2.24</td></tr>
+        <tr><td>memcpy()</td><td>4.15e-05</td><td>0.000417</td><td>0.0064</td><td>0.0897</td><td>2.15</td></tr>
+        
       </table>
 
     </div>

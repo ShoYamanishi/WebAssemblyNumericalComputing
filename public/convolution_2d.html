@@ -19,10 +19,9 @@
           This page measures the performance of a convolution with 5x5 kernel in 2D.
       </p>
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
 
     </div>
@@ -36,8 +35,8 @@
       <table class="results_native" border="1">
 
         <tr><th>grid size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th><th>2Kx2K</th><th>4Kx4K</th></tr>
-        <tr><td>plain c++</td><td>0.164129</td><td>0.590813</td><td>1.79972</td><td>4.2286</td><td>11.4032</td><td>45.6239</td><td>181.922</td></tr>
-
+        <tr><td>plain c++</td><td>0.0834</td><td>0.328</td><td>1.15</td><td>3.39</td><td>11.4</td><td>45.6</td><td>185</td></tr>
+        
       </table>
 
     </div>

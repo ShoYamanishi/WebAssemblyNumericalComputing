@@ -21,13 +21,13 @@ for n in ${TEST_TYPES}; do
 
 done 
 
-#for n in ${TEST_TYPES}; do
-#
-#  PARAM=""
-#  if [ "$#" != "0" ]; then
-#    PARAM="print_diag"
-#  fi
-#
-#  echo "${OUTPUT_DIR_MAC_NATIVE}/${n} ${PARAM}"
-#  ${OUTPUT_DIR_MAC_NATIVE}/${n} ${PARAM}
-#done 
+for n in ${TEST_TYPES}; do
+
+  PARAM=""
+  if [ "$#" != "0" ]; then
+    PARAM="print_diag"
+  fi
+
+  echo "${OUTPUT_DIR_MAC_NATIVE}/${n} ${PARAM}"
+  ${OUTPUT_DIR_MAC_NATIVE}/${n} ${PARAM}
+done 

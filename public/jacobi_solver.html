@@ -21,10 +21,9 @@
       </p>
 
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
 
     </div>
@@ -42,12 +41,12 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
-        <tr><td>plain c++</td><td>0.104258</td><td>0.39385</td><td>1.13728</td><td>2.81615</td><td>12.2516</td></tr>
-        <tr><td>NEON loop unrolled order 1</td><td>0.0246375</td><td>0.0750043</td><td>0.215988</td><td>0.548837</td><td>2.52052</td></tr>
-        <tr><td>NEON loop unrolled order 2</td><td>0.0149251</td><td>0.0451583</td><td>0.117054</td><td>0.296112</td><td>1.31597</td></tr>
-        <tr><td>NEON loop unrolled order 4</td><td>0.0090958</td><td>0.0280041</td><td>0.0727209</td><td>0.176896</td><td>0.853154</td></tr>
-        <tr><td>NEON loop unrolled order 8</td><td>0.0091417</td><td>0.0228208</td><td>0.0649666</td><td>0.158829</td><td>0.7312</td></tr>
-
+        <tr><td>plain c++</td><td>0.0414</td><td>0.224</td><td>0.829</td><td>2.82</td><td>12.3</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.0109</td><td>0.0493</td><td>0.167</td><td>0.55</td><td>2.45</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.00644</td><td>0.0276</td><td>0.0957</td><td>0.296</td><td>1.3</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.00418</td><td>0.0171</td><td>0.055</td><td>0.177</td><td>0.846</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.00393</td><td>0.014</td><td>0.0491</td><td>0.158</td><td>0.728</td></tr>
+        
       </table>
 
     </div>
@@ -65,12 +64,12 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
-        <tr><td>plain c++</td><td>0.0132414</td><td>0.0725165</td><td>0.345662</td><td>1.83852</td><td>8.58803</td></tr>
-        <tr><td>NEON loop unrolled order 1</td><td>0.0039833</td><td>0.0165749</td><td>0.0813376</td><td>0.398679</td><td>1.87648</td></tr>
-        <tr><td>NEON loop unrolled order 2</td><td>0.0035958</td><td>0.0123834</td><td>0.0544374</td><td>0.231454</td><td>0.976805</td></tr>
-        <tr><td>NEON loop unrolled order 4</td><td>0.004125</td><td>0.0130417</td><td>0.0525542</td><td>0.202792</td><td>0.805383</td></tr>
-        <tr><td>NEON loop unrolled order 8</td><td>0.0071459</td><td>0.0203253</td><td>0.0673377</td><td>0.245029</td><td>0.861617</td></tr>
-
+        <tr><td>plain c++</td><td>0.0131</td><td>0.0732</td><td>0.346</td><td>1.84</td><td>8.58</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.00399</td><td>0.0165</td><td>0.0813</td><td>0.4</td><td>1.87</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.0036</td><td>0.0124</td><td>0.0545</td><td>0.232</td><td>0.977</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.00413</td><td>0.013</td><td>0.0545</td><td>0.204</td><td>0.803</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.00713</td><td>0.0203</td><td>0.0673</td><td>0.245</td><td>0.861</td></tr>
+        
       </table>
 
     </div>
@@ -88,12 +87,12 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
-        <tr><td>plain c++</td><td>0.0222833</td><td>0.123546</td><td>0.594179</td><td>2.82677</td><td>12.8458</td></tr>
-        <tr><td>NEON loop unrolled order 1</td><td>0.0098709</td><td>0.0504501</td><td>0.2468</td><td>1.1691</td><td>5.8635</td></tr>
-        <tr><td>NEON loop unrolled order 2</td><td>0.0067499</td><td>0.0312586</td><td>0.142454</td><td>0.623429</td><td>3.35215</td></tr>
-        <tr><td>NEON loop unrolled order 4</td><td>0.0042458</td><td>0.0192251</td><td>0.0904292</td><td>0.377013</td><td>2.32346</td></tr>
-        <tr><td>NEON loop unrolled order 8</td><td>0.0036667</td><td>0.015725</td><td>0.0802876</td><td>0.345117</td><td>1.78883</td></tr>
-        
+        <tr><td>plain c++</td><td>0.0223</td><td>0.124</td><td>0.597</td><td>2.83</td><td>12.9</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.00989</td><td>0.0519</td><td>0.248</td><td>1.18</td><td>5.62</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.00677</td><td>0.0316</td><td>0.142</td><td>0.624</td><td>3.24</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.00423</td><td>0.0193</td><td>0.091</td><td>0.377</td><td>2.09</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.00365</td><td>0.016</td><td>0.0797</td><td>0.344</td><td>1.7</td></tr>
+                
       </table>
 
     </div>
@@ -111,13 +110,12 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th><th>1Kx1K</th></tr>
-        <tr><td>plain c++</td><td>0.0155748</td><td>0.084746</td><td>0.351675</td><td>1.92024</td><td>8.8248</td></tr>
-        <tr><td>NEON loop unrolled order 1</td><td>0.0080082</td><td>0.0421999</td><td>0.199142</td><td>0.926813</td><td>4.41145</td></tr>
-        <tr><td>NEON loop unrolled order 2</td><td>0.0059876</td><td>0.0246541</td><td>0.111783</td><td>0.471679</td><td>2.23293</td></tr>
-        <tr><td>NEON loop unrolled order 4</td><td>0.0051458</td><td>0.0210082</td><td>0.100142</td><td>0.396925</td><td>1.66697</td></tr>
-        <tr><td>NEON loop unrolled order 8</td><td>0.0067167</td><td>0.0239498</td><td>0.101287</td><td>0.388479</td><td>1.62935</td></tr>
-
-
+        <tr><td>plain c++</td><td>0.0155</td><td>0.0841</td><td>0.353</td><td>1.92</td><td>8.8</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.00791</td><td>0.0413</td><td>0.201</td><td>0.93</td><td>4.38</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.00593</td><td>0.0246</td><td>0.11</td><td>0.472</td><td>2.22</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.00495</td><td>0.0217</td><td>0.1</td><td>0.4</td><td>1.65</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.00733</td><td>0.024</td><td>0.0994</td><td>0.391</td><td>1.62</td></tr>
+        
       </table>
 
     </div>

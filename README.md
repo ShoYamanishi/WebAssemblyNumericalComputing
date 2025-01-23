@@ -2,6 +2,9 @@
 
 A study on the numerical computing with WebAssembly in C++ on the web browsers
 
+<img src="docs/readme01.png" alt="isolated" width="300"/>
+<img src="docs/readme02.png" alt="isolated" width="300"/>
+
 # Run the Test Scripts on Your Browser
 You can run the performance tests on your browser.
 You need to run a local server, such as `http.server` in Python3.
@@ -28,42 +31,23 @@ The smaller table contains the numbers sampled from the test program compiled
 from the same C++ code by clang++, and natively executed on Mac Mini M1 2020.
 You can make the side-by-side comparison of the time taken on your browser and on the Mac for each problem type and the size.
 
-# Description (work in progress)
+# Description
+This is a collection of scripts that perform some representative numerical computations on the web browsers. The scripts are written in C++ with NEON SIMD intrinsics where applicable. The C++ codes are compiled to WASM, and then linked to HTML files with
+some glue code in JS. The C++ codes utilize the following libraries where applicable, as well as the C++ standard library.
 
-Collection of test programs written in C++ for some types of numerical computing.
-The C++ code is already compiled to WASM so that you can run and test by yourself.
+- [Boost](https://www.boost.org).
+- [Eigen3](https://gitlab.com/libeigen/eigen).
+- [BLAS routines from CLAPACK's reference implementation from Netlib](https://www.netlib.org/clapack/).
 
-The purpose is to gain insight what problem size in what time kinda thing.
-which is difficult to obtain from other benchmarks and performance reports.
+When you open one of the HTML files through the HTTP request on a browser, it will
+automatically load the WASM code and starts executing it to measure the performance.
+When it finishes its execution, the tables on the HTML page are updated and filled with
+numbers in milliseconds.
+Most of the test data are artificially generated at runtime by the random number generators except for the LCP, for which some data sampled from the real ridig body simulations are used.
 
-to amortize the overhead, and take advantage of GPU
+The types of the computation and the problem sizes are chosen to reflect the typical real use cases in the interactive UI applications such as games.
+Therefore the use cases such as training of large machine language models or large scale computer simulations are excluded.
 
-- NEON SIMD 
-
-- Multi-thread not considered. To exploit the power of the multi-threading
-for the numerical computing, a very fine thread scheduing and synchronization are required. As the browsers do not support them, the multi-threadding is not considered.
-
-- WebGPU or WebGL not considered for two reasons. 
-One is the lack availability of WebGPU compute shaders on the browsers at the time of writing.
-The other is the usefulness. Based on my experience, in reality, the application
-of GPGPU is limited to
-- N-Body type Particle simulation
-- GPU-based collision detection
-- Back-prop for the NN learning.
-
-Series of Matrix-Matrix and Matrix-Vector multiplications and additions where the
-intermediate results can stay in the GPU memory.
-
-
-If you are interestedin the numerical computing on Mac and iOS devices,
-please check my sister project [AppleNumericalComputing on Github](https://github.com/ShoYamanishi/AppleNumericalComputing).
-It utilizes Accelerate framework and Metal compute shaders, as well as Arm NEON SIMD, and CPU multi-threadding.
-
-- Add some implementations and experiments with WebGPU, when it matures.
-N-Body and mat-vec multiplication, the overhead of using WebGPU ( data transfer, pipeline setup, invocation etc)
-can not be amortized 
-
-# Topics
 Following topics are covered in this project.
 
 - Memory Copy
@@ -81,6 +65,36 @@ Following topics are covered in this project.
 - Lemke LCP Solver
 - Conjugate Gradient Solver
 - 512-Point Radix-2 FFT
+
+The GPU capacity available through WebGPU and WebGL is not considered at moment
+for the following reason.
+
+Based on my experience, the applicability of GPGPU is limited to the following types
+of computations.
+
+- N-Body-type particle simulation, GPU-based collision detection, and shader-based artistic rendering.
+- Forward and back-prop for the NN learning.
+
+The former is characterised by their high independence of the computations.
+The update of the phase space for each particle does not depend on any other
+computations. The latter is characterised by the 
+series of matrix-matrix multiplications and additions, and element-wise function evaluations for the activation layers, where most of the data can be kept
+in the GPU memory.
+
+The former is already popular and covered by many web pages and examples, many of
+which render stunningly beautiful animating graphics, and this project does not have
+to cover it. The latter is not a realistic use case on the web browser.
+
+In general, for the other types of computations on GPU, the problem sizes must be significantly to be able to amortize the overhead of the GPU invokation and take
+advantage of its parallelism, and the time taken for the computation, either by CPU
+or GPU will be too long (in seconds and minutes) to be useful for the interactive
+applications.
+
+If you are interestedin the numerical computing on Mac and iOS devices,
+please check my sister project [AppleNumericalComputing on Github](https://github.com/ShoYamanishi/AppleNumericalComputing).
+It utilizes Accelerate framework and Metal (GPU) compute shaders, as well as Arm NEON SIMD, and CPU multi-threadding.
+
+# Topics
 
 ### Memory Copy
 This is a simple copy of the content of a region in memory to another non-overlapping region.

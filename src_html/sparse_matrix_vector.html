@@ -23,10 +23,9 @@
       </p>
 
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
 
     </div>
@@ -43,8 +42,8 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size & occupancy</th><th>256x256, 0.1</th><th>512x512, 0.1</th><th>1Kx1K, 0.1</th><th>2Kx2K, 0.1</th><th>4Kx4K, 0.1</th></tr>
-        <tr><td>plain c++</td><td>0.0114876</td><td>0.0567916</td><td>0.165371</td><td>0.439596</td><td>1.93378</td></tr>
-
+        <tr><td>plain c++</td><td>0.00886</td><td>0.0347</td><td>0.12</td><td>0.44</td><td>1.94</td></tr>
+        
       </table>
     </div>
 
@@ -60,8 +59,8 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size & occupancy</th><th>256x256, 0.1</th><th>512x512, 0.1</th><th>1Kx1K, 0.1</th><th>2Kx2K, 0.1</th><th>4Kx4K, 0.1</th></tr>
-        <tr><td>plain c++</td><td>0.0054957</td><td>0.0184418</td><td>0.0884796</td><td>0.440858</td><td>1.9322</td></tr>
-
+        <tr><td>plain c++</td><td>0.00432</td><td>0.0184</td><td>0.106</td><td>0.443</td><td>1.93</td></tr>
+        
       </table>
     </div>
 

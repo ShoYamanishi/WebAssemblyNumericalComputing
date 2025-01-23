@@ -104,7 +104,7 @@ public:
             os << "<td>";
 
             const auto v = m_times[ i ][ j ];
-
+            os << std::setprecision(3);
             os << v * 1000.0;
 
             os << "</td>";

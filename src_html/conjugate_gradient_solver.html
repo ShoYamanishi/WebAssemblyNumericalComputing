@@ -18,16 +18,15 @@
       <h1>WebAssembly Numerical Computing: Conjugate Gradient Solver</h1>
       <p>
           This page measures the performance of the conjugate gradient solver.
-          The number of iterations vary, and depend on the condition number.
+          The number of iterations until convergence varies, and depends on the condition number.
       </p>
 
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
-
+    
     </div>
 
     <div>
@@ -43,8 +42,8 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.130383</td><td>0.677367</td><td>1.88113</td><td>5.99898</td></tr>
-
+        <tr><td>plain c++</td><td>0.14</td><td>0.67</td><td>1.91</td><td>6.18</td></tr>
+        
       </table>
 
     </div>
@@ -62,8 +61,8 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.0426167</td><td>0.520079</td><td>3.95988</td><td>22.3562</td></tr>
-
+        <tr><td>plain c++</td><td>0.0469</td><td>0.346</td><td>2.87</td><td>20.2</td></tr>
+        
       </table>
 
     </div>
@@ -81,8 +80,8 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.059421</td><td>0.418004</td><td>5.81804</td><td>41.6464</td></tr>
-
+        <tr><td>plain c++</td><td>0.066</td><td>0.542</td><td>2.74</td><td>23</td></tr>
+        
       </table>
 
     </div>
@@ -100,8 +99,8 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.0400206</td><td>0.264983</td><td>1.17659</td><td>6.27949</td></tr>
-
+        <tr><td>plain c++</td><td>0.0399</td><td>0.284</td><td>1.18</td><td>6.32</td></tr>
+        
       </table>
 
     </div>
@@ -119,8 +118,8 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.0644375</td><td>0.463008</td><td>3.17286</td><td>35.2818</td></tr>
-
+        <tr><td>plain c++</td><td>0.0644</td><td>0.501</td><td>5.08</td><td>23.1</td></tr>
+        
       </table>
 
     </div>
@@ -138,8 +137,8 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.0514126</td><td>0.505725</td><td>3.6751</td><td>25.9527</td></tr>
-
+        <tr><td>plain c++</td><td>0.0657</td><td>0.61</td><td>3.08</td><td>20.4</td></tr>
+        
       </table>
 
     </div>

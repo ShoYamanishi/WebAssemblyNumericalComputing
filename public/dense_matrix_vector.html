@@ -22,10 +22,9 @@
       </p>
 
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
 
     </div>
@@ -43,13 +42,13 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>256x256</th><th>512x512</th><th>1Kx1K</th><th>2Kx2K</th><th>4Kx4K</th></tr>
-        <tr><td>plain c++</td><td>0.187621</td><td>0.927</td><td>2.2835</td><td>10.5495</td><td>65.4228</td></tr>
-        <tr><td>NEON loop unrolled order 1</td><td>0.0334542</td><td>0.139008</td><td>0.355421</td><td>2.5309</td><td>15.8807</td></tr>
-        <tr><td>NEON loop unrolled order 2</td><td>0.0211</td><td>0.0730667</td><td>0.1881</td><td>1.45306</td><td>11.0688</td></tr>
-        <tr><td>NEON loop unrolled order 4</td><td>0.0172379</td><td>0.0432083</td><td>0.124129</td><td>0.971279</td><td>8.8116</td></tr>
-        <tr><td>NEON loop unrolled order 8</td><td>0.0160249</td><td>0.0385832</td><td>0.0983752</td><td>0.656759</td><td>8.3818</td></tr>
-        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.0174415</td><td>0.0494125</td><td>0.107004</td><td>0.342412</td><td>1.29694</td></tr>
-
+        <tr><td>plain c++</td><td>0.115</td><td>0.451</td><td>1.54</td><td>10.3</td><td>66.1</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.0196</td><td>0.08</td><td>0.282</td><td>2.46</td><td>16.3</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.0114</td><td>0.0428</td><td>0.143</td><td>1.38</td><td>11.2</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.007</td><td>0.0253</td><td>0.0906</td><td>0.886</td><td>8.66</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.00619</td><td>0.0232</td><td>0.0777</td><td>0.596</td><td>8.27</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.00821</td><td>0.0291</td><td>0.0855</td><td>0.344</td><td>1.3</td></tr>
+        
       </table>
 
     </div>
@@ -67,13 +66,13 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>256x256</th><th>512x512</th><th>1Kx1K</th><th>2Kx2K</th><th>4Kx4K</th></tr>
-        <tr><td>plain c++</td><td>0.0345291</td><td>0.183304</td><td>0.859937</td><td>3.68801</td><td>15.2817</td></tr>
-        <tr><td>NEON loop unrolled order 1</td><td>0.0081374</td><td>0.0393376</td><td>0.186608</td><td>0.881379</td><td>3.74127</td></tr>
-        <tr><td>NEON loop unrolled order 2</td><td>0.0050458</td><td>0.0221166</td><td>0.0955583</td><td>0.452692</td><td>1.9107</td></tr>
-        <tr><td>NEON loop unrolled order 4</td><td>0.0049746</td><td>0.0196582</td><td>0.0790502</td><td>0.33985</td><td>1.30471</td></tr>
-        <tr><td>NEON loop unrolled order 8</td><td>0.0072793</td><td>0.0231126</td><td>0.0838041</td><td>0.343446</td><td>1.31098</td></tr>
-        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.0376585</td><td>0.182733</td><td>0.864392</td><td>3.69029</td><td>15.3145</td></tr>
-
+        <tr><td>plain c++</td><td>0.0342</td><td>0.182</td><td>0.856</td><td>3.69</td><td>15.3</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.00831</td><td>0.0397</td><td>0.185</td><td>0.877</td><td>3.72</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.00504</td><td>0.0221</td><td>0.0972</td><td>0.451</td><td>1.89</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.00495</td><td>0.0197</td><td>0.0793</td><td>0.34</td><td>1.29</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.00635</td><td>0.0241</td><td>0.0836</td><td>0.343</td><td>1.29</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.0343</td><td>0.183</td><td>0.866</td><td>3.69</td><td>15.3</td></tr>
+        
       </table>
 
     </div>
@@ -91,13 +90,13 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>256x256</th><th>512x512</th><th>1Kx1K</th><th>2Kx2K</th><th>4Kx4K</th></tr>
-        <tr><td>plain c++</td><td>0.0712417</td><td>0.307517</td><td>1.50812</td><td>12.1225</td><td>65.671</td></tr>
-        <tr><td>NEON loop unrolled order 1</td><td>0.0256918</td><td>0.120062</td><td>0.622266</td><td>6.05881</td><td>31.129</td></tr>
-        <tr><td>NEON loop unrolled order 2</td><td>0.0144164</td><td>0.0624709</td><td>0.337879</td><td>3.61699</td><td>23.1902</td></tr>
-        <tr><td>NEON loop unrolled order 4</td><td>0.0090665</td><td>0.039275</td><td>0.234529</td><td>3.45765</td><td>21.5046</td></tr>
-        <tr><td>NEON loop unrolled order 8</td><td>0.0081875</td><td>0.034525</td><td>0.179688</td><td>3.47519</td><td>21.3702</td></tr>
-        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.0104625</td><td>0.0395416</td><td>0.16625</td><td>0.649592</td><td>2.58938</td></tr>
-
+        <tr><td>plain c++</td><td>0.0703</td><td>0.308</td><td>1.42</td><td>11.9</td><td>64.7</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.026</td><td>0.121</td><td>0.588</td><td>5.88</td><td>30.9</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.0144</td><td>0.0626</td><td>0.346</td><td>3.6</td><td>24.6</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.00892</td><td>0.0376</td><td>0.219</td><td>3.42</td><td>21.5</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.00797</td><td>0.0357</td><td>0.178</td><td>3.47</td><td>21.5</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.00994</td><td>0.0396</td><td>0.166</td><td>0.65</td><td>2.61</td></tr>
+        
       </table>
 
     </div>
@@ -115,12 +114,12 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>256x256</th><th>512x512</th><th>1Kx1K</th><th>2Kx2K</th><th>4Kx4K</th></tr>
-        <tr><td>plain c++</td><td>0.0347374</td><td>0.190937</td><td>0.879633</td><td>3.72155</td><td>15.3458</td></tr>
-        <tr><td>NEON loop unrolled order 1</td><td>0.0194206</td><td>0.0920667</td><td>0.437921</td><td>1.85865</td><td>7.66233</td></tr>
-        <tr><td>NEON loop unrolled order 2</td><td>0.0106628</td><td>0.0464959</td><td>0.252279</td><td>0.942967</td><td>3.87037</td></tr>
-        <tr><td>NEON loop unrolled order 4</td><td>0.0098543</td><td>0.0393374</td><td>0.173671</td><td>0.646629</td><td>2.58491</td></tr>
-        <tr><td>NEON loop unrolled order 8</td><td>0.0096543</td><td>0.0382875</td><td>0.172088</td><td>0.625879</td><td>2.52206</td></tr>
-        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.0348627</td><td>0.191888</td><td>0.87905</td><td>3.72353</td><td>15.3475</td></tr>
+        <tr><td>plain c++</td><td>0.0347</td><td>0.194</td><td>0.882</td><td>3.74</td><td>15.4</td></tr>
+        <tr><td>NEON loop unrolled order 1</td><td>0.0194</td><td>0.0921</td><td>0.439</td><td>1.87</td><td>7.66</td></tr>
+        <tr><td>NEON loop unrolled order 2</td><td>0.0107</td><td>0.047</td><td>0.24</td><td>0.953</td><td>3.87</td></tr>
+        <tr><td>NEON loop unrolled order 4</td><td>0.0101</td><td>0.0393</td><td>0.174</td><td>0.647</td><td>2.6</td></tr>
+        <tr><td>NEON loop unrolled order 8</td><td>0.00996</td><td>0.0382</td><td>0.167</td><td>0.626</td><td>2.5</td></tr>
+        <tr><td>BLAS Netlib's CLAPACK reference</td><td>0.0351</td><td>0.191</td><td>0.883</td><td>3.74</td><td>15.4</td></tr>
 
       </table>
 

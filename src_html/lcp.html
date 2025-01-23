@@ -23,10 +23,9 @@
       </p>
 
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
 
     </div>
@@ -44,9 +43,9 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.0566834</td><td>0.234259</td><td>2.25749</td><td>16.5071</td></tr>
-        <tr><td>NEON</td><td>0.0674375</td><td>0.309542</td><td>2.73112</td><td>21.5966</td></tr>
-
+        <tr><td>plain c++</td><td>0.0491</td><td>0.21</td><td>2.07</td><td>16.6</td></tr>
+        <tr><td>NEON</td><td>0.0604</td><td>0.275</td><td>2.46</td><td>21.6</td></tr>
+        
       </table>
 
     </div>
@@ -64,9 +63,9 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.0405461</td><td>0.354667</td><td>3.5928</td><td>31.1508</td></tr>
-        <tr><td>NEON</td><td>0.0521665</td><td>0.473821</td><td>4.5665</td><td>38.9336</td></tr>
-
+        <tr><td>plain c++</td><td>0.0405</td><td>0.353</td><td>3.59</td><td>31.3</td></tr>
+        <tr><td>NEON</td><td>0.0519</td><td>0.464</td><td>4.55</td><td>39.4</td></tr>
+        
       </table>
 
     </div>
@@ -84,9 +83,9 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.0282123</td><td>0.248971</td><td>1.93384</td><td>15.4452</td></tr>
-        <tr><td>NEON</td><td>0.0341791</td><td>0.332363</td><td>2.69143</td><td>20.7447</td></tr>
-
+        <tr><td>plain c++</td><td>0.0285</td><td>0.249</td><td>1.94</td><td>15.6</td></tr>
+        <tr><td>NEON</td><td>0.0342</td><td>0.333</td><td>2.46</td><td>21.1</td></tr>
+        
       </table>
 
     </div>
@@ -104,9 +103,9 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.0456207</td><td>0.599912</td><td>3.84831</td><td>29.3746</td></tr>
-        <tr><td>NEON</td><td>0.0589542</td><td>0.792208</td><td>4.81507</td><td>36.9343</td></tr>
-
+        <tr><td>plain c++</td><td>0.0467</td><td>0.601</td><td>3.85</td><td>29.5</td></tr>
+        <tr><td>NEON</td><td>0.0604</td><td>0.793</td><td>4.87</td><td>36.9</td></tr>
+        
       </table>
 
     </div>
@@ -124,9 +123,9 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.0248502</td><td>0.191592</td><td>2.49143</td><td>20.6859</td></tr>
-        <tr><td>NEON</td><td>0.0301459</td><td>0.259146</td><td>3.25385</td><td>26.7465</td></tr>
-
+        <tr><td>plain c++</td><td>0.0249</td><td>0.192</td><td>2.49</td><td>20.8</td></tr>
+        <tr><td>NEON</td><td>0.0301</td><td>0.259</td><td>3.19</td><td>26.9</td></tr>
+        
       </table>
 
     </div>
@@ -144,9 +143,9 @@
       <table class="results_native" border="1">
 
         <tr><th>matrix size</th><th>64x64</th><th>128x128</th><th>256x256</th><th>512x512</th></tr>
-        <tr><td>plain c++</td><td>0.0402584</td><td>0.476808</td><td>4.92485</td><td>38.8034</td></tr>
-        <tr><td>NEON</td><td>0.0517958</td><td>0.642291</td><td>6.28526</td><td>48.4315</td></tr>
-
+        <tr><td>plain c++</td><td>0.0404</td><td>0.477</td><td>4.93</td><td>39.1</td></tr>
+        <tr><td>NEON</td><td>0.0518</td><td>0.628</td><td>6.23</td><td>48.6</td></tr>
+        
       </table>
 
     </div>

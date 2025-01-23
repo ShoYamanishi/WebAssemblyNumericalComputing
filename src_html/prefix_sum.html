@@ -16,14 +16,13 @@
     <div class="description">
       <h1>WebAssembly Numerical Computing: Prefix Sum</h1>
       <p>
-          This page measures the performance of prefix sum operation.
+          This page measures the performance of the prefix sum operation.
       </p>
 
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
 
     </div>
@@ -37,12 +36,12 @@
       <table class="results_native" border="1">
 
         <tr><th>vector length</th><th>32</th><th>128</th><th>512</th><th>2K</th><th>8K</th><th>32K</th><th>128K</th><th>512K</th><th>2M</th></tr>
-        <tr><td>plain c++ loop unrolled order 1</td><td>7.761e-05</td><td>0.000175</td><td>0.00053707</td><td>0.00201332</td><td>0.00755751</td><td>0.0352363</td><td>0.0858382</td><td>0.19888</td><td>0.799492</td></tr>
-        <tr><td>plain c++ loop unrolled order 2</td><td>7.791e-05</td><td>0.00018791</td><td>0.00058501</td><td>0.00240795</td><td>0.0104284</td><td>0.0267075</td><td>0.0702192</td><td>0.172809</td><td>0.702234</td></tr>
-        <tr><td>plain c++ loop unrolled order 4</td><td>7.422e-05</td><td>0.00016127</td><td>0.00050797</td><td>0.00184957</td><td>0.00641376</td><td>0.0197612</td><td>0.0454458</td><td>0.124477</td><td>0.51995</td></tr>
-        <tr><td>plain c++ loop unrolled order 8</td><td>8.875e-05</td><td>0.00022793</td><td>0.00079878</td><td>0.00250872</td><td>0.00913876</td><td>0.0296829</td><td>0.0658838</td><td>0.198891</td><td>0.814875</td></tr>
-        <tr><td>std::inclusive_scan()</td><td>7.042e-05</td><td>0.00017498</td><td>0.00054501</td><td>0.00171125</td><td>0.00967956</td><td>0.0283788</td><td>0.0606284</td><td>0.205458</td><td>0.826698</td></tr>
-
+        <tr><td>plain c++ loop unrolled order 1</td><td>3.38e-05</td><td>8.96e-05</td><td>0.000307</td><td>0.00126</td><td>0.00489</td><td>0.0178</td><td>0.0586</td><td>0.195</td><td>0.786</td></tr>
+        <tr><td>plain c++ loop unrolled order 2</td><td>3.08e-05</td><td>7.29e-05</td><td>0.000275</td><td>0.0011</td><td>0.00437</td><td>0.0158</td><td>0.0496</td><td>0.172</td><td>0.692</td></tr>
+        <tr><td>plain c++ loop unrolled order 4</td><td>3.29e-05</td><td>6.54e-05</td><td>0.000223</td><td>0.000811</td><td>0.00317</td><td>0.0116</td><td>0.0357</td><td>0.125</td><td>0.509</td></tr>
+        <tr><td>plain c++ loop unrolled order 8</td><td>3.33e-05</td><td>9.58e-05</td><td>0.00032</td><td>0.00124</td><td>0.00488</td><td>0.017</td><td>0.0511</td><td>0.2</td><td>0.816</td></tr>
+        <tr><td>std::inclusive_scan()</td><td>3.09e-05</td><td>9.84e-05</td><td>0.000338</td><td>0.00133</td><td>0.00504</td><td>0.0172</td><td>0.0529</td><td>0.205</td><td>0.841</td></tr>
+        
       </table>
 
     </div>

@@ -21,11 +21,11 @@
       </p>
 
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
+
     </div>
 
     <div class="tables_int">
@@ -40,10 +40,10 @@
       <table class="results_native" border="1">
 
         <tr><th>number of elements</th><th>32</th><th>128</th><th>512</th><th>2K</th><th>8K</th><th>32K</th><th>128K</th><th>512K</th><th>2M</th></tr>
-        <tr><td>std::sort()</td><td>0.0003751</td><td>0.0015458</td><td>0.0082667</td><td>0.0831582</td><td>0.771096</td><td>2.563</td><td>6.2947</td><td>26.1087</td><td>118.425</td></tr>
-        <tr><td>boost::sort::spreadsort</td><td>0.0003542</td><td>0.0019375</td><td>0.009804</td><td>0.0372544</td><td>0.211679</td><td>0.703617</td><td>2.22988</td><td>9.97782</td><td>46.3306</td></tr>
-        <tr><td>boost::sort::block_indirect_sort()</td><td>0.0003958</td><td>0.0018791</td><td>0.0089374</td><td>0.0802084</td><td>0.2704</td><td>0.793721</td><td>2.35053</td><td>10.1391</td><td>42.7424</td></tr>
-
+        <tr><td>std::sort()</td><td>0.0002</td><td>0.00103</td><td>0.00607</td><td>0.0506</td><td>0.433</td><td>1.74</td><td>5.86</td><td>26.7</td><td>116</td></tr>
+        <tr><td>boost::sort::spreadsort()</td><td>0.000212</td><td>0.00127</td><td>0.00578</td><td>0.0262</td><td>0.136</td><td>0.512</td><td>2.27</td><td>10.2</td><td>46.3</td></tr>
+        <tr><td>boost::sort::block_indirect_sort()</td><td>0.000217</td><td>0.00115</td><td>0.00512</td><td>0.0276</td><td>0.17</td><td>0.635</td><td>2.41</td><td>10.3</td><td>43.9</td></tr>
+        
       </table>
     </div>
 
@@ -59,10 +59,10 @@
       <table class="results_native" border="1">
 
         <tr><th>number of elements</th><th>32</th><th>128</th><th>512</th><th>2K</th><th>8K</th><th>32K</th><th>128K</th><th>512K</th><th>2M</th></tr>
-        <tr><td>std::sort()</td><td>0.0001292</td><td>0.0006957</td><td>0.0040374</td><td>0.0557915</td><td>0.337062</td><td>1.61383</td><td>7.34251</td><td>34.0775</td><td>150.227</td></tr>
-        <tr><td>boost::sort::spreadsort</td><td>0.0001417</td><td>0.0006418</td><td>0.0031125</td><td>0.0249166</td><td>0.139479</td><td>0.685762</td><td>2.50295</td><td>10.329</td><td>48.6352</td></tr>
-        <tr><td>boost::sort::block_indirect_sort()</td><td>0.0001542</td><td>0.0005833</td><td>0.0027832</td><td>0.0169166</td><td>0.133054</td><td>0.628038</td><td>2.65688</td><td>11.3843</td><td>48.318</td></tr>
-
+        <tr><td>std::sort()</td><td>0.000133</td><td>0.000704</td><td>0.00437</td><td>0.0479</td><td>0.337</td><td>1.6</td><td>7.62</td><td>34</td><td>151</td></tr>
+        <tr><td>boost::sort::spreadsort()</td><td>0.000129</td><td>0.000671</td><td>0.00336</td><td>0.0247</td><td>0.135</td><td>0.688</td><td>2.51</td><td>10.4</td><td>48.6</td></tr>
+        <tr><td>boost::sort::block_indirect_sort()</td><td>0.000129</td><td>0.000592</td><td>0.00282</td><td>0.0173</td><td>0.132</td><td>0.632</td><td>2.65</td><td>11.3</td><td>48</td></tr>
+        
       </table>
     </div>
 

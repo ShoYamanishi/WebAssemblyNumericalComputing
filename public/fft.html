@@ -22,10 +22,9 @@
       </p>
 
       <p>
-          The numbers below are in milliseconds.
-          The time is sampled by <code>chrono::high_resolution_clock::now()</code>.
-          Please note that the resolution of the function in most of the browsers is around <i>100 [μs]</i>,
-          and therefore the value <i>0</i> below should be interpreted as somewhere between <i>0</i> and <i>100 [μs]</i>.
+        The numbers in the tables show the time taken to perform the operation in milliseconds.
+        The time is sampled by <code>chrono::high_resolution_clock::now()</code> in C++.
+        Please note that the resolution of this function in most of the browsers is around <i>0.01</i>[ms].
       </p>
 
     </div>
@@ -42,9 +41,9 @@
       <table class="results_native" border="1">
 
         <tr><th>FFT 512</th><th>-</th></tr>
-        <tr><td>plain c++</td><td>0.00619958</td></tr>
-        <tr><td>NEON</td><td>0.0043021</td></tr>
-
+        <tr><td>plain c++</td><td>0.00259</td></tr>
+        <tr><td>NEON</td><td>0.00215</td></tr>
+        
       </table>
     </div>
 
@@ -60,9 +59,9 @@
       <table class="results_native" border="1">
 
         <tr><th>FFT 512</th><th>-</th></tr>
-        <tr><td>plain c++</td><td>0.00778674</td></tr>
-        <tr><td>NEON</td><td>0.00777999</td></tr>
-
+        <tr><td>plain c++</td><td>0.00439</td></tr>
+        <tr><td>NEON</td><td>0.00397</td></tr>
+        
       </table>
     </div>
 
