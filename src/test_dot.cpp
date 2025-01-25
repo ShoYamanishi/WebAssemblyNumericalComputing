@@ -13,6 +13,7 @@
 #include "test_pattern_generation.h"
 #include "netlib_clapack_reference.h"
 
+namespace Dot {
 
 template<class T>
 class TestCaseDOT : public TestCaseWithTimeMeasurements {
@@ -471,7 +472,7 @@ class TestExecutorDOT : public TestExecutor {
 
 static const size_t NUM_TRIALS = 100;
 
-size_t nums_elements[]{ 32, 64, 128, 512, 2* 1024, 8*1024, 32*1024, 128*1024, 512*1024 };
+static size_t nums_elements[]{ 32, 64, 128, 512, 2* 1024, 8*1024, 32*1024, 128*1024, 512*1024 };
 
 template<class T>
 string testSuitePerType( const bool print_diag )
@@ -527,16 +528,18 @@ string testSuitePerType( const bool print_diag )
     return ss.str();
 }
 
+} // namespace Dot
+
 #ifdef __EMSCRIPTEN__
 
 string testSDot()
 {
-    return testSuitePerType<float>( true );
+    return Dot::testSuitePerType<float>( true );
 }
 
 string testDDot()
 {
-    return testSuitePerType<double>( true );
+    return Dot::testSuitePerType<double>( true );
 }
 
 EMSCRIPTEN_BINDINGS( dot_module ) {
@@ -551,11 +554,11 @@ int main(int argc, char* argv[])
     const bool print_diag = (argc == 2);
 
     cout << "sdot (float)\n\n";
-    cout << testSuitePerType<float>( print_diag );
+    cout << Dot::testSuitePerType<float>( print_diag );
     cout << "\n\n";
 
     cout << "ddot (double)\n\n";
-    cout << testSuitePerType<double>( print_diag );
+    cout << Dot::testSuitePerType<double>( print_diag );
     cout << "\n\n";
     return 0;
 }

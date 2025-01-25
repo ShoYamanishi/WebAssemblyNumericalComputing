@@ -10,6 +10,8 @@
 #include <boost/sort/spreadsort/spreadsort.hpp>
 #include <boost/sort/sort.hpp>
 
+namespace Sort {
+
 template<class T>
 class TestCaseRadixSort : public TestCaseWithTimeMeasurements {
 
@@ -192,7 +194,7 @@ class TestExecutorRadixSort : public TestExecutor {
 
 static const size_t NUM_TRIALS = 10;
 
-size_t nums_elements[]{ 32, 128, 512, 2*1024, 8*1024, 32*1024, 128*1024, 512*1024, 2*1024*1024 };
+static size_t nums_elements[]{ 32, 128, 512, 2*1024, 8*1024, 32*1024, 128*1024 };
 
 template<class T>
 string testSuitePerType ( const bool print_diag )
@@ -213,9 +215,7 @@ string testSuitePerType ( const bool print_diag )
         "2K",
         "8K",
         "32K",
-        "128K",
-        "512K",
-        "2M"
+        "128K"
     };
 
     TestResults results{ case_names, header_line };
@@ -238,16 +238,18 @@ string testSuitePerType ( const bool print_diag )
     return ss.str();
 }
 
+} // namespace Sort
+
 #ifdef __EMSCRIPTEN__
 
 string testSortInt()
 {
-    return testSuitePerType<int> ( true );
+    return Sort::testSuitePerType<int> ( true );
 }
 
 string testSortFloat()
 {
-    return testSuitePerType<float> (true );
+    return Sort::testSuitePerType<float> (true );
 }
 
 EMSCRIPTEN_BINDINGS( sort_module ) {
@@ -262,11 +264,11 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "sort (int)\n\n";
-    cout << testSuitePerType<int> ( print_diag );
+    cout << Sort::testSuitePerType<int> ( print_diag );
     cout << "\n\n";
 
     cout << "sort (float)\n\n";
-    cout << testSuitePerType<float> ( print_diag );
+    cout << Sort::testSuitePerType<float> ( print_diag );
     cout << "\n\n";
 
     return 0;

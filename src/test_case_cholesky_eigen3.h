@@ -5,6 +5,8 @@
 
 #include <eigen3/Eigen/Cholesky>
 
+namespace Cholesky {
+
 template<class T, bool IS_COL_MAJOR>
 class TestCaseCholesky_eigen3 : public TestCaseCholesky<T, IS_COL_MAJOR> {
 
@@ -72,5 +74,6 @@ class TestCaseCholesky_eigen3 : public TestCaseCholesky<T, IS_COL_MAJOR> {
     }
 };
 
+} // namespace Cholesky
 
 #endif /*__TEST_CASE_CHOLESKY_EIGEN3_H__*/

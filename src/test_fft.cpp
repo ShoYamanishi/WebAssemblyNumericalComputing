@@ -9,6 +9,8 @@
 #include "test_case_with_time_measurements.h"
 #include "test_pattern_generation.h"
 
+namespace FFT {
+
 static const int FFT_LEN_512 = 512;
 
 template< class T >
@@ -512,16 +514,18 @@ string testSuitePerType ( const bool print_diag, const T max_amp, const int num_
     return ss.str();
 }
 
+} // namespace FFT
+
 #ifdef __EMSCRIPTEN__
 
 string testFFTFloat()
 {
-    return testSuitePerType<float>( true, 10.0, 20 );
+    return FFT::testSuitePerType<float>( true, 10.0, 20 );
 }
 
 string testFFTDouble()
 {
-    return testSuitePerType<double>( true, 10.0, 20 );
+    return FFT::testSuitePerType<double>( true, 10.0, 20 );
 }
 
 EMSCRIPTEN_BINDINGS( saxpy_module ) {
@@ -536,11 +540,11 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "fft-512 (float)\n\n";
-    cout << testSuitePerType<float > ( print_diag, 10.0, 20 );
+    cout << FFT::testSuitePerType<float > ( print_diag, 10.0, 20 );
     cout << "\n\n";    
 
     cout << "fft-512 (double)\n\n";
-    cout << testSuitePerType<double> ( print_diag, 10.0, 20 );
+    cout << FFT::testSuitePerType<double> ( print_diag, 10.0, 20 );
     cout << "\n\n";    
 
     return 0;

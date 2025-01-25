@@ -4,8 +4,13 @@ A study on the numerical computing with WebAssembly in C++ on the web browsers
 
 ![](docs/banner.png)
 
+
 # Run the Test Scripts on Your Browser
-You can run the test scripts on your browser.
+You can run the test scripts on your browser without downloading this repo.
+
+A live demo is available at my personal website: [ [https://www.magicalpouch.com/webassembly](https://www.magicalpouch.com/webassembly) ]
+
+# Run the Test Scripts on Your Browser with a Local Server
 You need to run a local server, such as `http.server` in Python3.
 The `./public` directory contains all the necessary files (*.html, *.css, *.js, *.wasm. *.data ) for the local HTTP server.
 

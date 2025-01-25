@@ -11,6 +11,8 @@
 #include "test_pattern_generation.h"
 #include "netlib_clapack_reference.h"
 
+namespace DenseMatrixVector {
+
 template< class T, bool IS_COL_MAJOR >
 class TestCaseDenseMV : public TestCaseWithTimeMeasurements  {
 
@@ -900,12 +902,11 @@ struct matrix_dim {
     size_t N;
 };
 
-struct matrix_dim matrix_dims[]= {
+static struct matrix_dim matrix_dims[]= {
     {    256,    256 },
     {    512,    512 },
     {   1024,   1024 },
-    {   2048,   2048 },
-    {   4096,   4096 }
+    {   2048,   2048 }
 };
 
 template<class T, bool IS_COL_MAJOR>
@@ -925,8 +926,7 @@ string testSuitePerType ( const bool print_diag, const T gen_low, const T gen_hi
         "256x256",
         "512x512",
         "1Kx1K",
-        "2Kx2K",
-        "4Kx4K"
+        "2Kx2K"
     };
 
     TestResults results{ case_names, header_line };
@@ -970,26 +970,28 @@ string testSuitePerType ( const bool print_diag, const T gen_low, const T gen_hi
     return ss.str();
 }
 
+} // namespace DenseMatrixVector
+
 #ifdef __EMSCRIPTEN__
 
 string testDenseMatrixVectorFloatColMajor()
 {
-    return testSuitePerType<float, true > ( true, -1.0, 1.0 );
+    return DenseMatrixVector::testSuitePerType<float, true > ( true, -1.0, 1.0 );
 }
 
 string testDenseMatrixVectorFloatRowMajor()
 {
-    return testSuitePerType<float, false > ( true, -1.0, 1.0 );
+    return DenseMatrixVector::testSuitePerType<float, false > ( true, -1.0, 1.0 );
 }
 
 string testDenseMatrixVectorDoubleColMajor()
 {
-    return testSuitePerType<double, true > ( true, -1.0, 1.0 );
+    return DenseMatrixVector::testSuitePerType<double, true > ( true, -1.0, 1.0 );
 }
 
 string testDenseMatrixVectorDoubleRowMajor()
 {
-    return testSuitePerType<double, false > ( true, -1.0, 1.0 );
+    return DenseMatrixVector::testSuitePerType<double, false > ( true, -1.0, 1.0 );
 }
 
 EMSCRIPTEN_BINDINGS( saxpy_module ) {
@@ -1006,19 +1008,19 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "dense mul mat vec (float, col-major)\n\n";
-    cout << testSuitePerType<float, true > ( print_diag, -1.0, 1.0 );
+    cout << DenseMatrixVector::testSuitePerType<float, true > ( print_diag, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "dense mul mat vec (float, row-major)\n\n";
-    cout << testSuitePerType<float, false > ( print_diag, -1.0, 1.0 );
+    cout << DenseMatrixVector::testSuitePerType<float, false > ( print_diag, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "dense mul mat vec (double, col-major)\n\n";
-    cout << testSuitePerType<double, true > ( print_diag, -1.0, 1.0 );
+    cout << DenseMatrixVector::testSuitePerType<double, true > ( print_diag, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "dense mul mat vec (double, row-major)\n\n";
-    cout << testSuitePerType<double, false > ( print_diag, -1.0, 1.0 );
+    cout << DenseMatrixVector::testSuitePerType<double, false > ( print_diag, -1.0, 1.0 );
     cout << "\n\n";
 
     return 0;

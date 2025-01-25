@@ -8,7 +8,7 @@ typedef long int logical;
 
 // from CLAPACK-3.2.1/BLAS/SRC/saxpy.c.
 
-/* Subroutine */ int saxpy_(integer *n, real *sa, real *sx, integer *incx, 
+/* Subroutine */ inline int saxpy_(integer *n, real *sa, real *sx, integer *incx, 
         real *sy, integer *incy)
 {
     /* System generated locals */
@@ -105,7 +105,7 @@ L40:
 
 // from CLAPACK-3.2.1/BLAS/SRC/daxpy.c.
 
-/* Subroutine */ int daxpy_(integer *n, doublereal *da, doublereal *dx, 
+/* Subroutine */ inline int daxpy_(integer *n, doublereal *da, doublereal *dx, 
         integer *incx, doublereal *dy, integer *incy)
 {
     /* System generated locals */
@@ -201,8 +201,7 @@ L40:
 
 // from CLAPACK-3.2.1/BLAS/SRC/sdot.c.
 
-
-doublereal sdot_(integer *n, real *sx, integer *incx, real *sy, integer *incy)
+inline doublereal sdot_(integer *n, real *sx, integer *incx, real *sy, integer *incy)
 {
     /* System generated locals */
     integer i__1;
@@ -300,7 +299,7 @@ L60:
 
 // from CLAPACK-3.2.1/BLAS/SRC/ddot.c.
 
-doublereal ddot_(integer *n, doublereal *dx, integer *incx, doublereal *dy, 
+inline doublereal ddot_(integer *n, doublereal *dx, integer *incx, doublereal *dy, 
         integer *incy)
 {
     /* System generated locals */
@@ -398,13 +397,13 @@ L60:
 
 
 
-/* Subroutine */ int xerbla_(char *srname, integer *info)
+/* Subroutine */ inline int xerbla_(char *srname, integer *info)
 {
     return 0;
 }
 
 
-logical lsame_(char *ca, char *cb)
+inline logical lsame_(char *ca, char *cb)
 {
     /* System generated locals */
     logical ret_val;
@@ -510,7 +509,7 @@ logical lsame_(char *ca, char *cb)
 
 
 
-/* Subroutine */ int sgemv_(char *trans, integer *m, integer *n, real *alpha, 
+/* Subroutine */ inline int sgemv_(char *trans, integer *m, integer *n, real *alpha, 
         real *a, integer *lda, real *x, integer *incx, real *beta, real *y, 
         integer *incy)
 {
@@ -815,7 +814,7 @@ logical lsame_(char *ca, char *cb)
 
 
 
-/* Subroutine */ int dgemv_(char *trans, integer *m, integer *n, doublereal *
+/* Subroutine */ inline int dgemv_(char *trans, integer *m, integer *n, doublereal *
         alpha, doublereal *a, integer *lda, doublereal *x, integer *incx, 
         doublereal *beta, doublereal *y, integer *incy)
 {

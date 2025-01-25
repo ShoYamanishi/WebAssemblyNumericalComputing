@@ -9,6 +9,8 @@
 #include "test_case_with_time_measurements.h"
 #include "test_pattern_generation.h"
 
+namespace GaussSeidelSolver {
+
 template< class T, bool IS_COL_MAJOR >
 class TestCaseGaussSeidelSolver : public TestCaseWithTimeMeasurements  {
 
@@ -1888,7 +1890,7 @@ class TestExecutorGaussSeidelSolver : public TestExecutor {
 static const size_t NUM_TRIALS       = 10;
 static const int    SOLVER_ITERATION = 10;
 
-int  matrix_dims[]={ 64, 128, 256, 512, 1024 };
+static int  matrix_dims[]={ 64, 128, 256, 512 };
 
 template<class T, bool IS_COL_MAJOR>
 
@@ -1903,8 +1905,7 @@ string testSuitePerType( const bool print_diag, const T condition_num, const T g
         "64x64",
         "128x128",
         "256x256",
-        "512x512",
-        "1Kx1K"
+        "512x512"
     };
 
     if constexpr ( !IS_COL_MAJOR ) {
@@ -1951,26 +1952,28 @@ string testSuitePerType( const bool print_diag, const T condition_num, const T g
     return ss.str();
 }
 
+} // namespace GaussSeidelSolver
+
 #ifdef __EMSCRIPTEN__
 
 string testGaussSeidelSolverFloatColMajor()
 {
-    return testSuitePerType<float,  true  >( true, 10.0, -1.0, 1.0 );
+    return GaussSeidelSolver::testSuitePerType<float,  true  >( true, 10.0, -1.0, 1.0 );
 }
 
 string testGaussSeidelSolverFloatRowMajor()
 {
-    return testSuitePerType<float,  false >( true, 10.0, -1.0, 1.0 );
+    return GaussSeidelSolver::testSuitePerType<float,  false >( true, 10.0, -1.0, 1.0 );
 }
 
 string testGaussSeidelSolverDoubleColMajor()
 {
-    return testSuitePerType<double,  true  >( true, 10.0, -1.0, 1.0 );
+    return GaussSeidelSolver::testSuitePerType<double,  true  >( true, 10.0, -1.0, 1.0 );
 }
 
 string testGaussSeidelSolverDoubleRowMajor()
 {
-    return testSuitePerType<double,  false >( true, 10.0, -1.0, 1.0 );
+    return GaussSeidelSolver::testSuitePerType<double,  false >( true, 10.0, -1.0, 1.0 );
 }
 
 EMSCRIPTEN_BINDINGS( saxpy_module ) {
@@ -1987,19 +1990,19 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "gauss-seidel (float, col-major)\n\n";
-    cout << testSuitePerType<float,  true  >( print_diag, 10.0, -1.0, 1.0 );
+    cout << GaussSeidelSolver::testSuitePerType<float,  true  >( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "gauss-seidel (float, row-major)\n\n";
-    cout << testSuitePerType<float,  false >( print_diag, 10.0, -1.0, 1.0 );
+    cout << GaussSeidelSolver::testSuitePerType<float,  false >( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "gauss-seidel (double, col-major)\n\n";
-    cout << testSuitePerType<double, true  >( print_diag, 10.0, -1.0, 1.0 );
+    cout << GaussSeidelSolver::testSuitePerType<double, true  >( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "gauss-seidel (double, row-major)\n\n";
-    cout << testSuitePerType<double, false >( print_diag, 10.0, -1.0, 1.0 );
+    cout << GaussSeidelSolver::testSuitePerType<double, false >( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     return 0;

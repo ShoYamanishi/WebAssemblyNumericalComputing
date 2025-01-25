@@ -11,6 +11,8 @@
 #include <sstream>
 #include <algorithm>
 
+namespace LCP {
+
 template <class T, bool IS_COL_MAJOR>
 class TestExecutorLCP : public TestExecutor {
 
@@ -71,7 +73,7 @@ static const bool   REPEATABLE         = false;
 //static const int    NUM_PGS_PER_SM     = 10;
 //static const float  OMEGA              = 1.0;
 
-int matrix_dims[] = { 64, 128, 256, 512 };
+static int matrix_dims[] = { 64, 128, 256 };
 
 template<class T, bool IS_COL_MAJOR>
 string testSuitePerType (
@@ -89,8 +91,7 @@ string testSuitePerType (
         "matrix size",
         "64x64",
         "128x128",
-        "256x256",
-        "512x512"
+        "256x256"
     };
 
     if constexpr ( !IS_COL_MAJOR ) {
@@ -120,38 +121,40 @@ string testSuitePerType (
     return ss.str();
 }
 
+} // namespace LCP
+
 static const std::string test_pattern_path( "test_patterns/" );
 
 #ifdef __EMSCRIPTEN__
 
 string testLCPFloatMu02()
 {
-    return testSuitePerType< float, false >( true, 0.0, -1.0, 1.0, LCP_REAL_NONSYMMETRIC_MU02, test_pattern_path );
+    return LCP::testSuitePerType< float, false >( true, 0.0, -1.0, 1.0, LCP::LCP_REAL_NONSYMMETRIC_MU02, test_pattern_path );
 }
 
 string testLCPDoubleMu02()
 {
-    return testSuitePerType< double, false >( true, 0.0, -1.0, 1.0, LCP_REAL_NONSYMMETRIC_MU02, test_pattern_path );
+    return LCP::testSuitePerType< double, false >( true, 0.0, -1.0, 1.0, LCP::LCP_REAL_NONSYMMETRIC_MU02, test_pattern_path );
 }
 
 string testLCPFloatMu08()
 {
-    return testSuitePerType< float, false  >( true, 0.0, -1.0, 1.0, LCP_REAL_NONSYMMETRIC_MU08, test_pattern_path );
+    return LCP::testSuitePerType< float, false  >( true, 0.0, -1.0, 1.0, LCP::LCP_REAL_NONSYMMETRIC_MU08, test_pattern_path );
 }
 
 string testLCPDoubleMu08()
 {
-    return testSuitePerType< double, false >( true, 0.0, -1.0, 1.0, LCP_REAL_NONSYMMETRIC_MU08, test_pattern_path );
+    return LCP::testSuitePerType< double, false >( true, 0.0, -1.0, 1.0, LCP::LCP_REAL_NONSYMMETRIC_MU08, test_pattern_path );
 }
 
 string testLCPFloatSymmetric()
 {
-    return testSuitePerType< float, false  >( true, 0.0, -1.0, 1.0, LCP_REAL_SYMMETRIC, test_pattern_path );
+    return LCP::testSuitePerType< float, false  >( true, 0.0, -1.0, 1.0, LCP::LCP_REAL_SYMMETRIC, test_pattern_path );
 }
 
 string testLCPDoubleSymmetric()
 {
-    return testSuitePerType< double, false >( true, 0.0, -1.0, 1.0, LCP_REAL_SYMMETRIC, test_pattern_path );
+    return LCP::testSuitePerType< double, false >( true, 0.0, -1.0, 1.0, LCP::LCP_REAL_SYMMETRIC, test_pattern_path );
 }
 
 EMSCRIPTEN_BINDINGS( saxpy_module ) {
@@ -172,124 +175,124 @@ int main( int argc, char* argv[] )
 
 /*
     cout << "lcp (float, random symmetric cond num 1.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,            1.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,            1.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random symmetric cond num 10.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,           10.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,           10.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random symmetric cond num 100.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,          100.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,          100.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random symmetric cond num 1000.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,         1000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,         1000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random symmetric cond num 10000.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,        10000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,        10000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random symmetric cond num 100000.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,       100000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,       100000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random symmetric cond num 1.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,            1.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,            1.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random symmetric cond num 10.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,           10.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,           10.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random symmetric cond num 100.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,          100.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,          100.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random symmetric cond num 1000.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,         1000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,         1000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random symmetric cond num 10000.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,        10000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,        10000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random symmetric cond num 100000.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,       100000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,       100000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random skey-symmetric cond num 1.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,           1.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,           1.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random skey-symmetric cond num 10.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,          10.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,          10.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random skey-symmetric cond num 100.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,         100.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,         100.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random skey-symmetric cond num 1000.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,        1000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,        1000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random skey-symmetric cond num 10000.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,       10000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,       10000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, random skey-symmetric cond num 100000.0)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag,      100000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag,      100000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random skey-symmetric cond num 1.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,           1.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,           1.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random skey-symmetric cond num 10.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,          10.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,          10.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random skey-symmetric cond num 100.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,         100.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,         100.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random skey-symmetric cond num 1000.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,        1000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,        1000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random skey-symmetric cond num 10000.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,       10000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,       10000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, random skey-symmetric cond num 100000.0)\n\n";
-    cout << testSuitePerType<double,  false  > ( print_diag,      100000.0, -1.0, 1.0, LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false  > ( print_diag,      100000.0, -1.0, 1.0, LCP::LCP_RANDOM_DIAGONALLY_DOMINANT_SKEWSYMMETRIC, test_pattern_path );
     cout << "\n\n";
 */
 
     cout << "lcp (float, real non-symmetric, mu=0.2)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag, 0.0, -1.0, 1.0, LCP_REAL_NONSYMMETRIC_MU02, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag, 0.0, -1.0, 1.0, LCP::LCP_REAL_NONSYMMETRIC_MU02, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, real non-symmetric, mu=0.2)\n\n";
-    cout << testSuitePerType<double,  false > ( print_diag, 0.0, -1.0, 1.0, LCP_REAL_NONSYMMETRIC_MU02, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false > ( print_diag, 0.0, -1.0, 1.0, LCP::LCP_REAL_NONSYMMETRIC_MU02, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, real non-symmetric, mu=0.8)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag, 0.0, -1.0, 1.0, LCP_REAL_NONSYMMETRIC_MU08, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag, 0.0, -1.0, 1.0, LCP::LCP_REAL_NONSYMMETRIC_MU08, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, real non-symmetric, mu=0.8)\n\n";
-    cout << testSuitePerType<double,  false > ( print_diag, 0.0, -1.0, 1.0, LCP_REAL_NONSYMMETRIC_MU08, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false > ( print_diag, 0.0, -1.0, 1.0, LCP::LCP_REAL_NONSYMMETRIC_MU08, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (float, real symmetric)\n\n";
-    cout << testSuitePerType<float,  false  > ( print_diag, 0.0, -1.0, 1.0, LCP_REAL_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<float,  false  > ( print_diag, 0.0, -1.0, 1.0, LCP::LCP_REAL_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     cout << "lcp (double, real symmetric)\n\n";
-    cout << testSuitePerType<double,  false > ( print_diag, 0.0, -1.0, 1.0, LCP_REAL_SYMMETRIC, test_pattern_path );
+    cout << LCP::testSuitePerType<double,  false > ( print_diag, 0.0, -1.0, 1.0, LCP::LCP_REAL_SYMMETRIC, test_pattern_path );
     cout << "\n\n";
 
     return 0;

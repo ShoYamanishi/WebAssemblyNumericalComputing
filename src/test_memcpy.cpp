@@ -9,6 +9,8 @@
 #include "test_case_with_time_measurements.h"
 #include "test_pattern_generation.h"
 
+namespace Memcpy {
+
 template<class T>
 class TestCaseMemcpy : public TestCaseWithTimeMeasurements {
 
@@ -166,7 +168,7 @@ class TestExecutorMemcpy : public TestExecutor {
 
 static const size_t NUM_TRIALS = 10;
 
-size_t nums_elements[] = { 256, 4*1024, 64*1024, 1024*1024, 16*1024*1024 };
+static size_t nums_elements[] = { 256, 4*1024, 64*1024, 1024*1024, 16*1024*1024 };
 
 template<class T>
 string testSuitePerType (
@@ -205,11 +207,13 @@ string testSuitePerType (
     return ss.str();
 }
 
+} // namespace Memcpy
+
 #ifdef __EMSCRIPTEN__
 
 string testMemcpy()
 {
-    return testSuitePerType< int >( true );
+    return Memcpy::testSuitePerType< int >( true );
 }
 
 EMSCRIPTEN_BINDINGS( memcpy_module ) {
@@ -223,7 +227,7 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "memcpy (bytes)\n\n";
-    cout << testSuitePerType< int >( print_diag );
+    cout << Memcpy::testSuitePerType< int >( print_diag );
     cout << "\n\n";
 
     return 0;

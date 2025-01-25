@@ -3,6 +3,8 @@
 
 #include "test_case_with_time_measurements.h"
 
+namespace Cholesky {
+
 template<class T, bool IS_COL_MAJOR>
 class TestCaseCholesky : public TestCaseWithTimeMeasurements {
 
@@ -89,5 +91,7 @@ public:
 
     virtual void run() = 0;
 };
+
+} // namespace Cholesky
 
 #endif /*__TEST_CASE_CHOLESKY_H__*/

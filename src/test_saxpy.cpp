@@ -13,6 +13,8 @@
 #include "test_pattern_generation.h"
 #include "netlib_clapack_reference.h"
 
+namespace Saxpy {
+
 template<class T>
 class TestCaseSAXPY :public TestCaseWithTimeMeasurements {
 
@@ -486,7 +488,7 @@ public:
 
 static const size_t NUM_TRIALS = 100;
 
-size_t nums_elements[]{ 128, 512, 2*1024, 8*1024, 32*1024, 128*1024, 512*1024, 4*1024*1024 };
+static size_t nums_elements[]{ 128, 512, 2*1024, 8*1024, 32*1024, 128*1024, 512*1024 };
 
 template<class T>
 string testSuitePerType ( const bool print_diag )
@@ -508,8 +510,7 @@ string testSuitePerType ( const bool print_diag )
         "8K",
         "32K",
         "128K",
-        "512K",
-        "4M"
+        "512K"
     };
 
     TestResults results{ case_names, header_line };
@@ -540,17 +541,18 @@ string testSuitePerType ( const bool print_diag )
     return ss.str();
 }
 
+} // namespace Saxpy
 
 #ifdef __EMSCRIPTEN__
 
 string testSaxpy()
 {
-    return testSuitePerType< float >( true );
+    return Saxpy::testSuitePerType< float >( true );
 }
 
 string testDaxpy()
 {
-    return testSuitePerType< double >( true );
+    return Saxpy::testSuitePerType< double >( true );
 }
 
 EMSCRIPTEN_BINDINGS( saxpy_module ) {
@@ -565,11 +567,11 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "saxpy (float)\n\n";
-    cout << testSuitePerType< float  > ( print_diag );
+    cout << Saxpy::testSuitePerType< float  > ( print_diag );
     cout << "\n\n";
 
     cout << "daxpy (double)\n\n";
-    cout << testSuitePerType< double > ( print_diag );
+    cout << Saxpy::testSuitePerType< double > ( print_diag );
     cout << "\n\n";
     return 0;
 }

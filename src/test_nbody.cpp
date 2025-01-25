@@ -19,6 +19,8 @@
 #include "nbody_elements.h"
 #include "nbody_elements_impl.h"
 
+namespace NBody {
+
 template< class T>
 class TestCaseNBody : public TestCaseWithTimeMeasurements {
 
@@ -745,7 +747,7 @@ static const size_t NUM_TRIALS = 10;
 static const float  TIMESTEP   = 0.1;
 static const float  TOLERANCE  = 0.01;
 
-size_t nums_elements[]{ 32, 64, 128, 256, 512, 1024, 2*1024 };
+static size_t nums_elements[]{ 32, 64, 128, 256, 512, 1024 };
 
 template<class T>
 string testSuitePerType ( const bool print_diag, const T delta_t, const T tolerance )
@@ -766,8 +768,7 @@ string testSuitePerType ( const bool print_diag, const T delta_t, const T tolera
         "128",
         "256",
         "512",
-        "1K",
-        "2K"
+        "1K"
     };
 
     TestResults results{ case_names, header_line };
@@ -801,11 +802,13 @@ string testSuitePerType ( const bool print_diag, const T delta_t, const T tolera
     return ss.str();
 }
 
+} // namespace NBody
+
 #ifdef __EMSCRIPTEN__
 
 string testNBody()
 {
-    return testSuitePerType<float> ( true, TIMESTEP, TOLERANCE );
+    return NBody::testSuitePerType<float> ( true, NBody::TIMESTEP, NBody::TOLERANCE );
 }
 
 EMSCRIPTEN_BINDINGS( nbody_module ) {
@@ -819,7 +822,7 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "N-body\n\n";
-    cout << testSuitePerType<float> ( print_diag, TIMESTEP, TOLERANCE );
+    cout << NBody::testSuitePerType<float> ( print_diag, NBody::TIMESTEP, NBody::TOLERANCE );
     cout << "\n\n";
     return 0;
 }

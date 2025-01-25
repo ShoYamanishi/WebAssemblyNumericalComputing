@@ -4,6 +4,8 @@
 #include "test_case_with_time_measurements.h"
 #include "test_lcp_pattern_generator.h"
 
+namespace LCP {
+
 template<class T, bool IS_COL_MAJOR>
 class TestCaseLCP : public TestCaseWithTimeMeasurements {
 
@@ -122,5 +124,7 @@ public:
 
     virtual void run() = 0;
 };
+
+} // namespace LCP
 
 #endif /*__TEST_CASE_LCP_H__*/

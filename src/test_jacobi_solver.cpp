@@ -8,6 +8,8 @@
 #include "test_case_with_time_measurements.h"
 #include "test_pattern_generation.h"
 
+namespace JacobiSolver {
+
 template< class T, bool IS_COL_MAJOR  >
 class TestCaseJacobiSolver : public TestCaseWithTimeMeasurements {
 
@@ -2273,7 +2275,7 @@ class TestExecutorJacobiSolver : public TestExecutor {
 static const size_t NUM_TRIALS       = 10;
 static const int    SOLVER_ITERATION = 10;
 
-int  matrix_dims[]={ 64, 128, 256, 512, 1024 };
+static int  matrix_dims[]={ 64, 128, 256, 512 };
 
 template<class T, bool IS_COL_MAJOR>
 string testSuitePerType ( const bool print_diag, const T condition_num, const T gen_low, const T gen_high )
@@ -2291,8 +2293,7 @@ string testSuitePerType ( const bool print_diag, const T condition_num, const T 
         "64x64",
         "128x128",
         "256x256",
-        "512x512",
-        "1Kx1K",
+        "512x512"
     };
 
     TestResults results{ case_names, header_line };
@@ -2327,26 +2328,28 @@ string testSuitePerType ( const bool print_diag, const T condition_num, const T 
     return ss.str();
 }
 
+} // namespace JacobiSolver
+
 #ifdef __EMSCRIPTEN__
 
 string testJacobiSolverFloatColMajor()
 {
-    return testSuitePerType<float,  true  >( true, 10.0, -1.0, 1.0 );
+    return JacobiSolver::testSuitePerType<float,  true  >( true, 10.0, -1.0, 1.0 );
 }
 
 string testJacobiSolverFloatRowMajor()
 {
-    return testSuitePerType<float,  false >( true, 10.0, -1.0, 1.0 );
+    return JacobiSolver::testSuitePerType<float,  false >( true, 10.0, -1.0, 1.0 );
 }
 
 string testJacobiSolverDoubleColMajor()
 {
-    return testSuitePerType<double,  true  >( true, 10.0, -1.0, 1.0 );
+    return JacobiSolver::testSuitePerType<double,  true  >( true, 10.0, -1.0, 1.0 );
 }
 
 string testJacobiSolverDoubleRowMajor()
 {
-    return testSuitePerType<double,  false >( true, 10.0, -1.0, 1.0 );
+    return JacobiSolver::testSuitePerType<double,  false >( true, 10.0, -1.0, 1.0 );
 }
 
 EMSCRIPTEN_BINDINGS( saxpy_module ) {
@@ -2363,19 +2366,19 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "jacobi (float, col-major)\n\n";
-    cout << testSuitePerType<float,  true  >( print_diag, 10.0, -1.0, 1.0 );
+    cout << JacobiSolver::testSuitePerType<float,  true  >( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "jacobi (float, row-major)\n\n";
-    cout << testSuitePerType<float,  false >( print_diag, 10.0, -1.0, 1.0 );
+    cout << JacobiSolver::testSuitePerType<float,  false >( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "jacobi (double, col-major)\n\n";
-    cout << testSuitePerType<double, true  >( print_diag, 10.0, -1.0, 1.0 );
+    cout << JacobiSolver::testSuitePerType<double, true  >( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "jacobi (double, row-major)\n\n";
-    cout << testSuitePerType<double, false >( print_diag, 10.0, -1.0, 1.0 );
+    cout << JacobiSolver::testSuitePerType<double, false >( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
     return 0;
 }

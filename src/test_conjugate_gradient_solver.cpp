@@ -9,6 +9,8 @@
 #include "test_case_with_time_measurements.h"
 #include "test_pattern_generation.h"
 
+namespace ConjugateGradientSolver {
+
 template< class T, bool IS_COL_MAJOR >
 class TestCaseConjugateGradientSolver : public TestCaseWithTimeMeasurements  {
 
@@ -254,7 +256,7 @@ static const size_t NUM_TRIALS    = 10;
 static const int    MAX_ITERATION = 1000;
 static const double EPSILON       = 1.0e-8;
 
-int matrix_dims[]={ 64, 128, 256, 512 };
+static int matrix_dims[]={ 64, 128, 256 };
 
 template<class T, bool IS_COL_MAJOR>
 string testSuitePerType (
@@ -271,8 +273,7 @@ string testSuitePerType (
         "matrix size",
         "64x64",
         "128x128",
-        "256x256",
-        "512x512"
+        "256x256"
     };
 
     TestResults results{ case_names, header_line };
@@ -292,36 +293,38 @@ string testSuitePerType (
     return ss.str();
 }
 
+} // namespace ConjugateGradientSolver
+
 #ifdef __EMSCRIPTEN__
 
 string testConjugateGradientFloatCond10()
 {
-    return testSuitePerType< float, false >( true, 10.0, -1.0, 1.0 );
+    return ConjugateGradientSolver::testSuitePerType< float, false >( true, 10.0, -1.0, 1.0 );
 }
 
 string testConjugateGradientFloatCond1000()
 {
-    return testSuitePerType< float, false >( true, 1000.0, -1.0, 1.0 );
+    return ConjugateGradientSolver::testSuitePerType< float, false >( true, 1000.0, -1.0, 1.0 );
 }
 
 string testConjugateGradientFloatCond100000()
 {
-    return testSuitePerType< float, false >( true, 100000.0, -1.0, 1.0 );
+    return ConjugateGradientSolver::testSuitePerType< float, false >( true, 100000.0, -1.0, 1.0 );
 }
 
 string testConjugateGradientDoubleCond10()
 {
-    return testSuitePerType< double, false >( true, 10.0, -1.0, 1.0 );
+    return ConjugateGradientSolver::testSuitePerType< double, false >( true, 10.0, -1.0, 1.0 );
 }
 
 string testConjugateGradientDoubleCond1000()
 {
-    return testSuitePerType< double, false >( true, 1000.0, -1.0, 1.0 );
+    return ConjugateGradientSolver::testSuitePerType< double, false >( true, 1000.0, -1.0, 1.0 );
 }
 
 string testConjugateGradientDoubleCond100000()
 {
-    return testSuitePerType< double, false >( true, 100000.0, -1.0, 1.0 );
+    return ConjugateGradientSolver::testSuitePerType< double, false >( true, 100000.0, -1.0, 1.0 );
 }
 
 EMSCRIPTEN_BINDINGS( saxpy_module ) {
@@ -342,27 +345,27 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "conjugate gradient (float, cond num 10.0)\n\n";
-    cout << testSuitePerType<float, false > ( print_diag,      10.0, -1.0, 1.0 );
+    cout << ConjugateGradientSolver::testSuitePerType<float, false > ( print_diag,      10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "conjugate gradient (float, cond num 1000.0)\n\n";
-    cout << testSuitePerType<float, false > ( print_diag,    1000.0, -1.0, 1.0 );
+    cout << ConjugateGradientSolver::testSuitePerType<float, false > ( print_diag,    1000.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "conjugate gradient (float, cond num 100000.0)\n\n";
-    cout << testSuitePerType<float, false > ( print_diag,  100000.0, -1.0, 1.0 );
+    cout << ConjugateGradientSolver::testSuitePerType<float, false > ( print_diag,  100000.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "conjugate gradient (double, cond num 10.0)\n\n";
-    cout << testSuitePerType<double, false > ( print_diag,      10.0, -1.0, 1.0 );
+    cout << ConjugateGradientSolver::testSuitePerType<double, false > ( print_diag,      10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "conjugate gradient (double, cond num 1000.0)\n\n";
-    cout << testSuitePerType<double, false > ( print_diag,    1000.0, -1.0, 1.0 );
+    cout << ConjugateGradientSolver::testSuitePerType<double, false > ( print_diag,    1000.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "conjugate gradient (double, cond num 100000.0)\n\n";
-    cout << testSuitePerType<double, false > ( print_diag,  100000.0, -1.0, 1.0 );
+    cout << ConjugateGradientSolver::testSuitePerType<double, false > ( print_diag,  100000.0, -1.0, 1.0 );
     cout << "\n\n";
 
     return 0;

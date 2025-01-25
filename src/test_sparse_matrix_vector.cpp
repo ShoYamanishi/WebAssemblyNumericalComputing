@@ -8,6 +8,7 @@
 #include "test_case_with_time_measurements.h"
 #include "test_pattern_generation.h"
 
+namespace SparseMatrixVector {
 
 template<class T>
 class TestCaseSPMV :public TestCaseWithTimeMeasurements {
@@ -191,13 +192,12 @@ struct matrix_dim {
     float  ratio;
 };
 
-struct matrix_dim matrix_dims[]={
+static struct matrix_dim matrix_dims[]={
 
       {     256,     256, 0.1  }
     , {     512,     512, 0.1  }
     , {    1024,    1024, 0.1  }
     , {    2048,    2048, 0.1  }
-    , {    4096,    4096, 0.1  }
 };
 
 template<class T>
@@ -212,8 +212,7 @@ string testSuitePerType( const bool print_diag, const T gen_low, const T gen_hig
         "256x256, 0.1",
         "512x512, 0.1",
         "1Kx1K, 0.1",
-        "2Kx2K, 0.1",
-        "4Kx4K, 0.1"
+        "2Kx2K, 0.1"
     };
 
     TestResults results{ case_names, header_line };
@@ -238,16 +237,18 @@ string testSuitePerType( const bool print_diag, const T gen_low, const T gen_hig
     return ss.str();
 }
 
+} // namespace SparseMatrixVector
+
 #ifdef __EMSCRIPTEN__
 
 string testSparseMatrixVectorFloat()
 {
-    return testSuitePerType<float> ( true, -1.0, 1.0 );
+    return SparseMatrixVector::testSuitePerType<float> ( true, -1.0, 1.0 );
 }
 
 string testSparseMatrixVectorDouble()
 {
-    return testSuitePerType<double> ( true, -1.0, 1.0 );
+    return SparseMatrixVector::testSuitePerType<double> ( true, -1.0, 1.0 );
 }
 
 EMSCRIPTEN_BINDINGS( saxpy_module ) {
@@ -262,11 +263,11 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "sparse mul mat * vec (float)\n\n";
-    cout << testSuitePerType<float> ( print_diag, -1.0, 1.0 );
+    cout << SparseMatrixVector::testSuitePerType<float> ( print_diag, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "sparse mul mat * vec (double)\n\n";
-    cout << testSuitePerType<double> ( print_diag, -1.0, 1.0 );
+    cout << SparseMatrixVector::testSuitePerType<double> ( print_diag, -1.0, 1.0 );
     cout << "\n\n";
 
     return 0;

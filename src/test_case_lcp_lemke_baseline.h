@@ -7,6 +7,7 @@
 
 #include "test_case_lcp.h"
 
+namespace LCP {
 
 template<class T, bool IS_COL_MAJOR>
 
@@ -413,5 +414,7 @@ public:
     }
 
 };
+
+} // namespace LCP
 
 #endif /*__TEST_CASE_LCP_LEMKE_BASELINE_H__*/

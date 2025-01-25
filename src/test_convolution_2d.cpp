@@ -7,6 +7,8 @@
 #include "test_case_with_time_measurements.h"
 #include "test_pattern_generation.h"
 
+namespace Convolution2D {
+
 template<class T>
 class TestCaseConvolution2D :public TestCaseWithTimeMeasurements {
 
@@ -233,8 +235,7 @@ struct image_dim image_dims[]={
     {      256,     256},
     {      512,     512},
     {     1024,    1024},
-    {   2*1024,  2*1024},
-    {   4*1024,  4*1024}
+    {   2*1024,  2*1024}
 };
 
 template< class T, int KERNEL_DIM >
@@ -251,8 +252,7 @@ string testSuitePerType ( const bool print_diag, const T gen_low, const T gen_hi
         "256x256",
         "512x512",
         "1Kx1K",
-        "2Kx2K",
-        "4Kx4K"
+        "2Kx2K"
     };
 
     TestResults results{ case_names, header_line };
@@ -276,11 +276,13 @@ string testSuitePerType ( const bool print_diag, const T gen_low, const T gen_hi
     return ss.str();
 }
 
+} //namespace Convolution2D
+
 #ifdef __EMSCRIPTEN__
 
 string testConvolution2D()
 {
-    return testSuitePerType<float, 5> ( true, -1.0, 1.0 );
+    return Convolution2D::testSuitePerType<float, 5> ( true, -1.0, 1.0 );
 }
 
 EMSCRIPTEN_BINDINGS( convolution_2d_module ) {
@@ -294,7 +296,7 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "conv 2d 5x5\n\n";
-    cout << testSuitePerType<float, 5> ( print_diag, -1.0, 1.0 );
+    cout << Convolution2D::testSuitePerType<float, 5> ( print_diag, -1.0, 1.0 );
     cout << "\n\n";
 
     return 0;

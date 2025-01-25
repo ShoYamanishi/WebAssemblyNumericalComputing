@@ -3,6 +3,8 @@
 
 #include "test_case_cholesky.h"
 
+namespace Cholesky {
+
 template<class T, bool IS_COL_MAJOR>
 static void factorize_in_place_submatrix_cholesky( T* A, const int dim )
 {
@@ -146,5 +148,7 @@ class TestCaseCholesky_baseline : public TestCaseCholesky<T, IS_COL_MAJOR> {
         solve_Ltxey<T, IS_COL_MAJOR>( this->m_L, this->m_x, this->m_y, this->m_dim );
     }
 };
+
+} // namespace Cholesky
 
 #endif /*__TEST_CASE_CHOLESKY_BASELINE_H__*/

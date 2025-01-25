@@ -11,6 +11,8 @@
 #include "test_case_cholesky_baseline.h"
 #include "test_case_cholesky_eigen3.h"
 
+namespace Cholesky {
+
 template <class T, bool IS_COL_MAJOR>
 class TestExecutorCholesky : public TestExecutor {
 
@@ -78,7 +80,7 @@ class TestExecutorCholesky : public TestExecutor {
 
 static const size_t NUM_TRIALS = 10;
 
-int matrix_dims[]={ 64, 128, 256, 512, 1024 };
+static int matrix_dims[]={ 64, 128, 256, 512 };
 
 template<class T, bool IS_COL_MAJOR>
 string testSuitePerType( const bool print_diag, const T condition_num, const T gen_low, const T gen_high ) {
@@ -93,8 +95,7 @@ string testSuitePerType( const bool print_diag, const T condition_num, const T g
         "64x64",
         "128x128",
         "256x256",
-        "512x512",
-        "1Kx1K"
+        "512x512"
     };
 
     if constexpr (IS_COL_MAJOR) {     
@@ -125,26 +126,28 @@ string testSuitePerType( const bool print_diag, const T condition_num, const T g
     return ss.str();
 }
 
+} // namespace Cholesky
+
 #ifdef __EMSCRIPTEN__
 
 string testCholeskyFloatColMajor()
 {
-    return testSuitePerType<float, true  > ( true, 10.0, -1.0, 1.0 );
+    return Cholesky::testSuitePerType<float, true  > ( true, 10.0, -1.0, 1.0 );
 }
 
 string testCholeskyFloatRowMajor()
 {
-    return testSuitePerType<float, false > ( true, 10.0, -1.0, 1.0 );
+    return Cholesky::testSuitePerType<float, false > ( true, 10.0, -1.0, 1.0 );
 }
 
 string testCholeskyDoubleColMajor()
 {
-    return testSuitePerType<double, true  > ( true, 10.0, -1.0, 1.0 );
+    return Cholesky::testSuitePerType<double, true  > ( true, 10.0, -1.0, 1.0 );
 }
 
 string testCholeskyDoubleRowMajor()
 {
-    return testSuitePerType<double, false > ( true, 10.0, -1.0, 1.0 );
+    return Cholesky::testSuitePerType<double, false > ( true, 10.0, -1.0, 1.0 );
 }
 
 EMSCRIPTEN_BINDINGS( saxpy_module ) {
@@ -161,19 +164,19 @@ int main( int argc, char* argv[] )
     const bool print_diag = (argc == 2);
 
     cout << "cholesky (float, col-major)\n\n";
-    cout << testSuitePerType<float,  true  > ( print_diag, 10.0, -1.0, 1.0 );
+    cout << Cholesky::testSuitePerType<float,  true  > ( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "cholesky (float, row-major)\n\n";
-    cout << testSuitePerType<float,  false > ( print_diag, 10.0, -1.0, 1.0 );
+    cout << Cholesky::testSuitePerType<float,  false > ( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "cholesky (double, col-major)\n\n";
-    cout << testSuitePerType<double, true  > ( print_diag, 10.0, -1.0, 1.0 );
+    cout << Cholesky::testSuitePerType<double, true  > ( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     cout << "cholesky (double, row-major)\n\n";
-    cout << testSuitePerType<double, false > ( print_diag, 10.0, -1.0, 1.0 );
+    cout << Cholesky::testSuitePerType<double, false > ( print_diag, 10.0, -1.0, 1.0 );
     cout << "\n\n";
 
     return 0;

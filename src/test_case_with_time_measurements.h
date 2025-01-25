@@ -71,14 +71,18 @@ public:
 
     void printHTML( ostream& os )
     {
+        os << "<thead>\n";
         printHTMLTableHeader( os );
         os << "\n";
+        os << "</thead>\n";
 
+        os << "<tbody>\n";
         for ( int i = 0; i < m_case_names.size(); i++ ) {
 
             printHTMLTableRow( i, os );
             os << "\n";
         }
+        os << "</tbody>\n";
     }
 
     void printHTMLTableHeader( ostream& os )

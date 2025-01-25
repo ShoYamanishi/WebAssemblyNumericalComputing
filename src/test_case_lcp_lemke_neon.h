@@ -8,6 +8,8 @@
 
 #include "test_case_lcp.h"
 
+namespace LCP {
+
 template<class T, bool IS_COL_MAJOR>
 class TestCaseLCP_lemke_neon : public TestCaseLCP<T, IS_COL_MAJOR> {
 
@@ -469,5 +471,7 @@ class TestCaseLCP_lemke_neon : public TestCaseLCP<T, IS_COL_MAJOR> {
             << from_col_index_to_var_name( m_basic_variables_along_rows[leaving_row_index]) << "\n";
     }
 };
+
+} // namespace LCP
 
 #endif /*__TEST_CASE_LCP_LEMKE_NEON_H__*/

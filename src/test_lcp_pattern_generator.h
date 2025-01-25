@@ -6,6 +6,8 @@
 #include <algorithm>
 #include "test_pattern_generation.h"
 
+namespace LCP {
+
 const std::string SAMPLE_DATA_32_MU02   = "sample_data_32_mu0.2.txt";
 const std::string SAMPLE_DATA_64_MU02   = "sample_data_64_mu0.2.txt";
 const std::string SAMPLE_DATA_128_MU02  = "sample_data_128_mu0.2.txt";
@@ -234,5 +236,7 @@ class LCPPatternGenerator {
     }
 
 };
+
+} // namespace LCP
 
 #endif /*__TEST_LCP_PATTERN_GENERATOR_H__*/

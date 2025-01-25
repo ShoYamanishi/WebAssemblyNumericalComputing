@@ -13,6 +13,8 @@
 #include "test_case_with_time_measurements.h"
 #include "test_pattern_generation.h"
 
+namespace PrefixSum {
+
 template<class T>
 class TestCasePrefixSum : public TestCaseWithTimeMeasurements {
 
@@ -296,7 +298,7 @@ class TestExecutorPrefixSum : public TestExecutor {
 
 static const size_t NUM_TRIALS = 100;
 
-size_t nums_elements[]{ 32, 128, 512, 2*1024, 8* 1024, 32*1024, 128*1024, 512*1024, 2*1024*1024 };
+static size_t nums_elements[]{ 32, 128, 512, 2*1024, 8* 1024, 32*1024, 128*1024, 512*1024 };
 
 template<class T>
 string testSuitePerType ( const bool print_diag )
@@ -319,8 +321,7 @@ string testSuitePerType ( const bool print_diag )
         "8K",
         "32K",
         "128K",
-        "512K",
-        "2M"
+        "512K"
     };
 
     TestResults results{ case_names, header_line };
@@ -345,11 +346,13 @@ string testSuitePerType ( const bool print_diag )
     return ss.str();
 }
 
+} // namespace PrefixSum
+
 #ifdef __EMSCRIPTEN__
 
 string testPrefixSum()
 {
-    return testSuitePerType<int>( true );
+    return PrefixSum::testSuitePerType<int>( true );
 }
 
 EMSCRIPTEN_BINDINGS( prefix_sum_module ) {
@@ -363,7 +366,7 @@ int main(int argc, char* argv[])
     const bool print_diag = (argc == 2);
 
     cout << "prefix sum (int)\n\n";
-    cout << testSuitePerType<int>( print_diag );
+    cout << PrefixSum::testSuitePerType<int>( print_diag );
     cout << "\n\n";
 
     return 0;
